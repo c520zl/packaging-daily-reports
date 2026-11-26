@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>制袋部日报 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">包</div>
+      <div class="brand-name">生产日报表</div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html"><svg width="18" height="18"><use href="icons.svg#i-dashboard"></use></svg>工作台</a>
+      <div class="nav-group">日报填报</div>
+      <a class="nav-item" href="print.html"><svg width="18" height="18"><use href="icons.svg#i-print"></use></svg>印刷部日报</a>
+      <a class="nav-item" href="lamination.html"><svg width="18" height="18"><use href="icons.svg#i-layers"></use></svg>复合部日报</a>
+      <a class="nav-item active" href="bagmaking.html"><svg width="18" height="18"><use href="icons.svg#i-bag"></use></svg>制袋部日报</a>
+      <div class="nav-group">数据管理</div>
+      <a class="nav-item" href="reports.html"><svg width="18" height="18"><use href="icons.svg#i-report"></use></svg>报表查询</a>
+      <a class="nav-item" href="users.html"><svg width="18" height="18"><use href="icons.svg#i-users"></use></svg>用户管理</a>
+    </nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">制袋部日报表</div>
+      <div class="topbar-right">
+        <span class="tag tag-blue"><span class="dot"></span>待审核 3 行</span>
+        <div class="topbar-user">
+          <div class="avatar">赵</div>
+          <span class="topbar-username">赵主任 · 制袋部</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">公共信息</div>
+            <div class="card-sub">按班次 / 机台筛选查看，一行记录对应一个机台一个班次</div>
+          </div>
+        </div>
+        <div class="card-body filter-bar">
+          <div class="field" style="min-width:180px">
+            <label class="field-label">日期<span class="req">*</span></label>
+            <input class="input" type="date" value="2026-11-23">
+          </div>
+          <div class="field" style="min-width:130px">
+            <label class="field-label">班次</label>
+            <select class="select"><option selected>全部班次</option><option>白班</option><option>夜班</option></select>
+          </div>
+          <div class="field" style="min-width:130px">
+            <label class="field-label">机台</label>
+            <select class="select"><option selected>1–8 号机</option><option>1 号机</option><option>2 号机</option><option>3 号机</option><option>4 号机</option><option>5 号机</option><option>6 号机</option><option>7 号机</option><option>8 号机</option></select>
+          </div>
+          <div class="toolbar" style="margin-left:auto">
+            <button class="btn btn-outline"><svg width="15" height="15"><use href="icons.svg#i-download"></use></svg>导出今日</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">明细记录 <span class="card-sub">共 3 行</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm"><svg width="14" height="14"><use href="icons.svg#i-plus"></use></svg>添加一行</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl form-table">
+            <thead>
+              <tr>
+                <th style="width:64px">班次<i style="color:var(--danger)">*</i></th>
+                <th style="width:70px">机台<i style="color:var(--danger)">*</i></th>
+                <th style="width:96px">捡袋员</th>
+                <th style="width:80px">机长<i style="color:var(--danger)">*</i></th>
+                <th style="width:80px">机速<br>m/min</th>
+                <th style="width:110px">生产单号<i style="color:var(--danger)">*</i></th>
+                <th style="width:150px">袋型<i style="color:var(--danger)">*</i></th>
+                <th style="width:104px">成品规格</th>
+                <th style="width:88px">来料米数</th>
+                <th style="width:84px">调机米数</th>
+                <th style="width:88px">结束米数</th>
+                <th style="width:88px">完成数量</th>
+                <th style="width:72px">废料 kg</th>
+                <th style="width:72px">余料 kg</th>
+                <th style="width:74px">工时起止</th>
+                <th style="width:72px">不良品</th>
+                <th style="min-width:140px">异常原因</th>
+                <th style="width:44px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><select class="cell-select"><option selected>白班</option><option>夜班</option></select></td>
+                <td><select class="cell-select"><option selected>3 号机</option><option>1 号机</option><option>2 号机</option><option>4 号机</option><option>5 号机</option><option>6 号机</option><option>7 号机</option><option>8 号机</option></select></td>
+                <td><input class="cell-input" value="孙晓燕"></td>
+                <td><input class="cell-input" value="赵德海"></td>
+                <td><input class="cell-input num" value="110"></td>
+                <td><input class="cell-input" value="DB-20261123-01"></td>
+                <td><select class="cell-select"><option selected>三边封袋</option><option>连体拉链直立袋</option><option>三边封拉链袋</option><option>三边封自粘袋</option><option>八边封袋</option><option>中封袋</option><option>中封等边风琴袋</option><option>中封侧边风琴袋</option></select></td>
+                <td><input class="cell-input" value="150×230"></td>
+                <td><input class="cell-input num" value="1850"></td>
+                <td><input class="cell-input num" value="45"></td>
+                <td><input class="cell-input num" value="1805"></td>
+                <td><input class="cell-input num" value="6200"></td>
+                <td><input class="cell-input num" value="3.2"></td>
+                <td><input class="cell-input num" value="18.0"></td>
+                <td><input class="cell-input" value="08:00–16:00" style="font-size:12px"></td>
+                <td><input class="cell-input num" value="35"></td>
+                <td><input class="cell-input" value=""></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+              <tr>
+                <td><select class="cell-select"><option selected>白班</option><option>夜班</option></select></td>
+                <td><select class="cell-select"><option selected>5 号机</option><option>1 号机</option><option>2 号机</option><option>3 号机</option><option>4 号机</option><option>6 号机</option><option>7 号机</option><option>8 号机</option></select></td>
+                <td><input class="cell-input" value="周丽娟"></td>
+                <td><input class="cell-input" value="郑国强"></td>
+                <td><input class="cell-input num" value="85"></td>
+                <td><input class="cell-input" value="DB-20261123-02"></td>
+                <td><select class="cell-select"><option selected>八边封袋</option><option>连体拉链直立袋</option><option>三边封袋</option><option>三边封拉链袋</option><option>三边封自粘袋</option><option>中封袋</option><option>中封等边风琴袋</option><option>中封侧边风琴袋</option></select></td>
+                <td><input class="cell-input" value="180×260"></td>
+                <td><input class="cell-input num" value="2400"></td>
+                <td><input class="cell-input num" value="120"></td>
+                <td><input class="cell-input num" value="2280"></td>
+                <td><input class="cell-input num" value="4800"></td>
+                <td><input class="cell-input num" value="6.8"></td>
+                <td><input class="cell-input num" value="25.5"></td>
+                <td><input class="cell-input" value="08:30–16:30" style="font-size:12px"></td>
+                <td><input class="cell-input num" value="72"></td>
+                <td><input class="cell-input" value="封口温度偏高，调机 40 分钟"></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+              <tr>
+                <td><select class="cell-select"><option>白班</option><option selected>夜班</option></select></td>
+                <td><select class="cell-select"><option selected>2 号机</option><option>1 号机</option><option>3 号机</option><option>4 号机</option><option>5 号机</option><option>6 号机</option><option>7 号机</option><option>8 号机</option></select></td>
+                <td><input class="cell-input" value="吴海燕"></td>
+                <td><input class="cell-input" value="马建军"></td>
+                <td><input class="cell-input num" value="" placeholder="待填"></td>
+                <td><input class="cell-input" value="DB-20261123-03"></td>
+                <td><select class="cell-select"><option selected>连体拉链直立袋</option><option>三边封袋</option><option>三边封拉链袋</option><option>三边封自粘袋</option><option>八边封袋</option><option>中封袋</option><option>中封等边风琴袋</option><option>中封侧边风琴袋</option></select></td>
+                <td><input class="cell-input" value="200×300"></td>
+                <td><input class="cell-input num" value="3100"></td>
+                <td><input class="cell-input num" value=""></td>
+                <td><input class="cell-input num" value="" placeholder="待填"></td>
+                <td><input class="cell-input num" value="" placeholder="待填"></td>
+                <td><input class="cell-input num" value=""></td>
+                <td><input class="cell-input num" value=""></td>
+                <td><input class="cell-input" value="16:00–24:00" style="font-size:12px"></td>
+                <td><input class="cell-input num" value=""></td>
+                <td><input class="cell-input" value="拉链位热封轮待更换"></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-foot">
+          <span class="form-foot-sum">合计：完成 <b>11,000</b> 个 · 废料 <b>10.0</b> kg · 余料 <b>43.5</b> kg · 不良品 <b>107</b> 个（未含夜班行）</span>
+          <span class="toolbar" style="margin-left:auto">
+            <button class="btn btn-ghost">存草稿</button>
+            <button class="btn btn-primary"><svg width="15" height="15"><use href="icons.svg#i-check"></use></svg>提交日报</button>
+          </span>
+        </div>
+      </section>
+
+      <p class="card-sub" style="padding:0 4px">提示：结束米数 = 来料米数 − 调机米数 − 当班使用米数；同一机台同班次同一生产单号重复录入时系统将提示去重。</p>
+    </main>
+  </div>
+</div>
+</body>
+</html>

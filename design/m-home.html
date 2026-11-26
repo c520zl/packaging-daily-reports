@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="app">
+<title>员工填报 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="app">
+  <header class="m-head">
+    <div class="m-head-row">
+      <div>
+        <div class="m-title">下午好，李明</div>
+        <div class="sub">印刷部 · 2 号印刷机 · 白班</div>
+      </div>
+      <div class="m-head-date">11-23 周一</div>
+    </div>
+  </header>
+
+  <main class="m-body">
+    <!-- 今日统计 -->
+    <section class="m-card">
+      <div class="m-card-body" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; padding:14px 12px">
+        <div class="m-rn">
+          <div class="k">今日已填</div>
+          <div class="v">4 行</div>
+        </div>
+        <div class="m-rn" style="border-left:1px solid var(--line); border-right:1px solid var(--line)">
+          <div class="k">实际印刷</div>
+          <div class="v">9,550 m</div>
+        </div>
+        <div class="m-rn">
+          <div class="k">待审核</div>
+          <div class="v" style="color:var(--warning)">2 行</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主管审核入口（主管登录时显示） -->
+    <a class="m-card" href="m-review.html" style="display:flex; align-items:center; gap:12px; padding:14px 16px; border-left:3px solid var(--warning)">
+      <div class="m-quick-icon" style="background:var(--warning-weak); color:var(--warning)">
+        <svg width="20" height="20"><use href="icons.svg#i-check"></use></svg>
+      </div>
+      <div class="m-quick-info">
+        <div class="m-quick-name">待我审核 <span style="color:var(--warning)">3 单</span></div>
+        <div class="m-quick-desc">李明补填的 YS-20261123-03 已重新提交</div>
+      </div>
+      <svg class="m-quick-arrow" width="16" height="16"><use href="icons.svg#i-arrow-right"></use></svg>
+    </a>
+
+    <!-- 快捷填报 -->
+    <section class="m-card">
+      <div class="m-card-head">
+        <div>
+          <div class="m-card-title">填报日报</div>
+          <div class="m-card-sub">选择您所在的部门进入填写</div>
+        </div>
+      </div>
+      <div class="m-card-body" style="padding-top:4px; padding-bottom:4px">
+        <a class="m-quick" href="m-print.html">
+          <div class="m-quick-icon" style="background:var(--primary-weak); color:var(--primary)">
+            <svg width="20" height="20"><use href="icons.svg#i-print"></use></svg>
+          </div>
+          <div class="m-quick-info">
+            <div class="m-quick-name">印刷部日报</div>
+            <div class="m-quick-desc">上机时间 · 机速 · 实际印刷米数</div>
+          </div>
+          <svg class="m-quick-arrow" width="16" height="16"><use href="icons.svg#i-arrow-right"></use></svg>
+        </a>
+        <a class="m-quick" href="m-lamination.html">
+          <div class="m-quick-icon" style="background:var(--accent-weak); color:var(--accent)">
+            <svg width="20" height="20"><use href="icons.svg#i-layers"></use></svg>
+          </div>
+          <div class="m-quick-info">
+            <div class="m-quick-name">复合部日报</div>
+            <div class="m-quick-desc">干式 / 无溶剂 · 卷数 · 调机米数</div>
+          </div>
+          <svg class="m-quick-arrow" width="16" height="16"><use href="icons.svg#i-arrow-right"></use></svg>
+        </a>
+        <a class="m-quick" href="m-bagmaking.html">
+          <div class="m-quick-icon" style="background:var(--warning-weak); color:var(--warning)">
+            <svg width="20" height="20"><use href="icons.svg#i-bag"></use></svg>
+          </div>
+          <div class="m-quick-info">
+            <div class="m-quick-name">制袋部日报</div>
+            <div class="m-quick-desc">班次 · 机台 · 袋型 · 完成数量</div>
+          </div>
+          <svg class="m-quick-arrow" width="16" height="16"><use href="icons.svg#i-arrow-right"></use></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- 我的待办 -->
+    <section class="m-card">
+      <div class="m-card-head">
+        <div class="m-card-title">最近填报</div>
+        <a class="m-more" href="m-records.html">全部记录</a>
+      </div>
+      <div class="m-card-body" style="display:flex; flex-direction:column; gap:12px">
+        <div class="m-record">
+          <div class="m-record-top">
+            <span class="m-record-no">YS-20261123-04</span>
+            <span class="tag tag-orange" style="margin-left:auto"><span class="dot"></span>待审核</span>
+          </div>
+          <div class="m-record-meta">OPP/CPP · 500×320 · 机速 165 m/min</div>
+          <div class="m-record-nums">
+            <div class="m-rn"><div class="k">要求米数</div><div class="v">5,200</div></div>
+            <div class="m-rn"><div class="k">实际米数</div><div class="v">5,100</div></div>
+            <div class="m-rn"><div class="k">印刷时间</div><div class="v">30.9 分</div></div>
+          </div>
+        </div>
+        <div class="m-record">
+          <div class="m-record-top">
+            <span class="m-record-no">YS-20261123-03</span>
+            <span class="tag tag-green" style="margin-left:auto"><span class="dot"></span>已审核</span>
+          </div>
+          <div class="m-record-meta">PET/CPP · 280×180 · 机速 180 m/min</div>
+          <div class="m-record-nums">
+            <div class="m-rn"><div class="k">要求米数</div><div class="v">2,200</div></div>
+            <div class="m-rn"><div class="k">实际米数</div><div class="v">2,150</div></div>
+            <div class="m-rn"><div class="k">印刷时间</div><div class="v">12.0 分</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部标签栏 -->
+  <nav class="m-tabbar">
+    <a class="m-tab on" href="m-home.html">
+      <svg width="22" height="22"><use href="icons.svg#i-dashboard"></use></svg>
+      首页
+    </a>
+    <a class="m-tab" href="m-print.html">
+      <span class="m-fab"><svg width="22" height="22"><use href="icons.svg#i-plus"></use></svg></span>
+    </a>
+    <a class="m-tab" href="m-me.html">
+      <svg width="22" height="22"><use href="icons.svg#i-users"></use></svg>
+      我的
+    </a>
+  </nav>
+</div>
+</body>
+</html>

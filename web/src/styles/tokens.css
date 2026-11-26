@@ -1,0 +1,182 @@
+/* 软包装生产日报表系统 · 专业科技风 */
+:root {
+  /* 色彩 */
+  --bg: #F5F7FB;
+  --surface: #FFFFFF;
+  --surface-2: #F8FAFC;
+  --text: #0F172A;
+  --muted: #55657D;
+  --muted-2: #64748B;
+  --line: #E2E8F0;
+  --primary: #2457F5;
+  --primary-hover: #1D46C8;
+  --primary-weak: #EAF0FE;
+  --accent: #0C7372;
+  --accent-weak: #E3F4F3;
+  --success: #15803D;
+  --success-weak: #E7F7EE;
+  --warning: #B45309;
+  --warning-weak: #FDF3E3;
+  --danger: #DC2626;
+  --danger-weak: #FDECEC;
+
+  /* 字体 */
+  --font: "PingFang SC", "HarmonyOS Sans SC", "MiSans", "Microsoft YaHei", system-ui, sans-serif;
+
+  /* 字号阶梯 */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fs-3xl: 40px;
+
+  /* 间距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, .08);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, .08);
+
+  /* 布局 */
+  --sidebar-w: 232px;
+  --topbar-h: 56px;
+}
+
+/* ===== 暗色模式（跟随系统；车间夜班看屏友好）=====
+   变量全部按「表面层级」重映射，组件代码零改动 */
+.theme-dark {
+    color-scheme: dark;
+    --bg: #0B1220;
+    --surface: #131C2E;
+    --surface-2: #1B2540;
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+    --muted-2: #64748B;
+    --line: #243147;
+
+    --primary: #5B8AFF;
+    --primary-hover: #7AA2FF;
+    --primary-weak: rgba(91, 138, 255, .16);
+    --accent: #2DD4BF;
+    --accent-weak: rgba(45, 212, 191, .14);
+    --success: #4ADE80;
+    --success-weak: rgba(74, 222, 128, .14);
+    --warning: #FBBF24;
+    --warning-weak: rgba(251, 191, 36, .14);
+    --danger: #F87171;
+    --danger-weak: rgba(248, 113, 113, .16);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, .4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, .45);
+}
+
+/* 暗色下的 Element Plus 表面（覆盖其白底变量，含禁用/悬停/按钮等全部表面组） */
+.theme-dark {
+  body {
+    background: var(--bg);
+    color: var(--text);
+  }
+  /* 核心：在 :root 级别重映射 EP 全套表面变量，所有组件（含禁用态）统一继承 */
+    --el-bg-color: var(--surface);
+    --el-bg-color-overlay: var(--surface);
+    --el-bg-color-page: var(--bg);
+    --el-fill-color: var(--surface-2);
+    --el-fill-color-light: var(--surface-2);
+    --el-fill-color-lighter: var(--surface);
+    --el-fill-color-extra-light: var(--surface);
+    --el-fill-color-dark: var(--surface-2);
+    --el-fill-color-darker: var(--line);
+    --el-fill-color-blank: var(--surface);
+    --el-disabled-bg-color: var(--surface-2);
+    --el-disabled-border-color: var(--line);
+    --el-disabled-text-color: var(--muted-2);
+    --el-text-color-primary: var(--text);
+    --el-text-color-regular: var(--text);
+    --el-text-color-secondary: var(--muted);
+    --el-text-color-placeholder: var(--muted-2);
+    --el-text-color-disabled: var(--muted-2);
+    --el-border-color: var(--line);
+    --el-border-color-light: var(--line);
+    --el-border-color-lighter: var(--line);
+    --el-border-color-extra-light: var(--line);
+  /* 禁用态输入框：深底 + 弱边框（修复待审核行白底问题） */
+  .el-input__wrapper.is-disabled,
+  .el-select__wrapper.is-disabled,
+  .el-input-number.is-disabled,
+  .el-textarea.is-disabled .el-textarea__inner {
+    background-color: var(--surface-2) !important;
+    box-shadow: 0 0 0 1px var(--line) inset !important;
+    cursor: not-allowed;
+  }
+  .el-input-number.is-disabled .el-input__inner,
+  .el-input__wrapper.is-disabled .el-input__inner {
+    color: var(--muted-2) !important;
+    -webkit-text-fill-color: var(--muted-2);
+  }
+  .el-input__wrapper, .el-select__wrapper, .el-input-number {
+    background-color: var(--surface);
+    box-shadow: 0 0 0 1px var(--line) inset !important;
+  }
+  .el-input__wrapper.is-focus, .el-select__wrapper.is-focused {
+    box-shadow: 0 0 0 1px var(--primary) inset !important;
+  }
+  .el-input__inner, .el-input__inner::placeholder,
+  .el-select__placeholder, .el-textarea__inner {
+    color: inherit;
+  }
+  .el-input__inner::placeholder { color: var(--muted-2); }
+  /* 默认/描边按钮（添加一行、存草稿等）跟随表面 */
+  .el-button--default {
+    --el-button-bg-color: var(--surface);
+    --el-button-hover-bg-color: var(--surface-2);
+    --el-button-text-color: var(--text);
+    --el-button-hover-text-color: var(--primary);
+    --el-button-border-color: var(--line);
+    --el-button-hover-border-color: var(--primary);
+  }
+  .el-button--primary { --el-button-bg-color: var(--primary); --el-button-border-color: var(--primary); }
+  .el-switch.is-checked .el-switch__core { background: var(--success); }
+  .el-message { background: var(--surface); border-color: var(--line); }
+  .el-message--success { --el-message-text-color: var(--success); }
+  .el-message--warning { --el-message-text-color: var(--warning); }
+  .el-message--error { --el-message-text-color: var(--danger); }
+  .el-dropdown-menu { background: var(--surface); }
+  .el-dropdown-menu__item:not(.is-disabled):hover { background: var(--surface-2); color: var(--text); }
+  .el-dialog { background: var(--surface); }
+  .el-dialog__title, .el-dialog__body { color: var(--text); }
+  /* 表格：表头/行背景/滚动条区域跟随表面（修复顶部白带） */
+  .el-table, .el-table tr, .el-table th.el-table__cell {
+    background: var(--surface);
+    --el-table-bg-color: var(--surface);
+    --el-table-tr-bg-color: var(--surface);
+    --el-table-header-bg-color: var(--surface-2);
+    --el-table-border-color: var(--line);
+    --el-table-text-color: var(--text);
+    --el-table-header-text-color: var(--muted);
+  }
+  /* 日期/时间选择面板 */
+  .el-date-picker, .el-time-panel, .el-select-dropdown, .el-picker-panel {
+    background: var(--surface);
+    border-color: var(--line);
+  }
+  .el-date-picker__header, .el-time-panel__footer { color: var(--text); }
+  .el-date-table th, .el-date-table td { color: var(--text); }
+  /* 滚动条暗色化（修复表格外白色滚动带） */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted-2); }
+}

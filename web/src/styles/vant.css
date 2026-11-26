@@ -1,0 +1,111 @@
+/**
+ * Vant 4 主题对齐：把 Vant 的 CSS 变量映射到后台 tokens.css 的变量上，
+ * 填报端与管理端同色同字体，风格一致。
+ * 变量参考：https://vant-ui.github.io/vant/#/zh-CN/home
+ */
+:root {
+  /* 主色 / 成功 / 危险 / 警告 → 后台品牌色 */
+  --van-primary-color: var(--primary);
+  --van-success-color: var(--success);
+  --van-danger-color: var(--danger);
+  --van-warning-color: var(--warning);
+
+  /* 文字 */
+  --van-text-color: var(--text);
+  --van-text-color-2: var(--muted);
+  --van-text-color-3: var(--muted-2);
+
+  /* 背景 / 表面 */
+  --van-background: var(--bg);
+  --van-background-2: var(--surface);
+  --van-gray-1: var(--surface-2);
+  --van-gray-2: var(--surface-2);
+  --van-active-color: var(--surface-2);
+
+  /* 边框 */
+  --van-border-color: var(--line);
+  --van-cell-border-color: var(--line);
+
+  /* 字体与圆角 */
+  --van-base-font: var(--font);
+  --van-border-radius-md: var(--radius-md);
+  --van-border-radius-lg: var(--radius-lg);
+  --van-cell-font-size: var(--fs-md);
+  --van-nav-bar-title-font-size: var(--fs-lg);
+}
+
+/* 导航栏：品牌蓝底白字（与后台顶栏一致） */
+.van-nav-bar.v-app-navbar {
+  background: linear-gradient(160deg, #16337E 0%, #1D46C8 100%);
+  --van-nav-bar-title-text-color: #fff;
+  --van-nav-bar-icon-color: #fff;
+  --van-nav-bar-text-color: #fff;
+  --van-nav-bar-height: 50px;
+}
+
+/* 卡片：Vant cell-group 在浅灰背景上加圆角与阴影 */
+.v-app-card {
+  margin: 12px 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* 数字统计网格 */
+.v-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 14px 4px;
+}
+.v-stats__item { text-align: center; }
+.v-stats__item + .v-stats__item { border-left: 1px solid var(--line); }
+.v-stats__k { font-size: var(--fs-sm); color: var(--muted); }
+.v-stats__v { font-size: 20px; font-weight: 600; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+/* 表单分组标题 */
+.v-group-title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  padding: 14px 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.v-group-title .req { color: var(--danger); font-weight: 400; }
+
+/* 自动计算展示行 */
+.v-calc {
+  display: flex; align-items: center;
+  padding: 10px 16px;
+  font-size: var(--fs-md);
+  font-variant-numeric: tabular-nums;
+}
+.v-calc .hint { margin-left: auto; font-size: var(--fs-xs); color: var(--muted-2); }
+
+/* 居中手机列宽容器（桌面访问时最像原生 App） */
+.v-app-frame {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+}
+/* 桌面上固定栏也跟随列宽 */
+.v-app-frame .van-nav-bar--fixed,
+.v-app-frame .van-tabbar--fixed { max-width: 430px; left: 50%; transform: translateX(-50%); }
+
+/* 校验错误提示色 */
+.van-field__error-message { color: var(--danger); }
+
+/* 深色模式跟随 .theme-dark（对齐后台暗色变量） */
+.theme-dark {
+  --van-background: var(--bg);
+  --van-background-2: var(--surface);
+  --van-text-color: var(--text);
+  --van-text-color-2: var(--muted);
+  --van-text-color-3: var(--muted-2);
+  --van-border-color: var(--line);
+  --van-cell-border-color: var(--line);
+  --van-active-color: var(--surface-2);
+  color-scheme: dark;
+}

@@ -1,0 +1,76 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: report-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: daily_report
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./server/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # RustFS：S3 兼容对象存储，文件（头像等）唯一存储后端
+  # 镜像国内拉取：docker pull docker.m.daocloud.io/rustfs/rustfs:latest-glibc
+  #              docker tag docker.m.daocloud.io/rustfs/rustfs:latest-glibc rustfs/rustfs:latest
+  # healthcheck 用 /minio/health/live（RustFS 兼容 MinIO 健康端点；/rustfs/ 路径实测 403）
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: report-rustfs
+    environment:
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfsadmin
+    volumes:
+      - rustfs-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  server:
+    build:
+      context: ./server
+    container_name: report-server
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rustfs:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/daily_report?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      # JWT 密钥（生产环境用 .env 或 secrets 覆盖）
+      APP_JWT_SECRET: "LtjoXOEXII2jQ4m/BXCqn3Gm7F87qfM44W6xIvw//3ZbAw0/Rzr/DXstkqYFGos7dzwPNygNL+D1Pbh6LEW/LQ=="
+      # RustFS 对象存储（唯一存储后端）
+      STORAGE_RUSTFS_ENDPOINT: http://rustfs:9000
+      STORAGE_RUSTFS_ACCESS_KEY: rustfsadmin
+      STORAGE_RUSTFS_SECRET_KEY: rustfsadmin
+      STORAGE_RUSTFS_BUCKET: daily-report
+      STORAGE_RUSTFS_PUBLIC_URL: http://localhost:9000
+    ports:
+      - "8080:8080"
+
+  web:
+    build:
+      context: ./web
+    container_name: report-web
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+
+volumes:
+  mysql-data:
+  rustfs-data:

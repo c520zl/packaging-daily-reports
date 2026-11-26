@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>印刷部日报 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">包</div>
+      <div class="brand-name">生产日报表</div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html"><svg width="18" height="18"><use href="icons.svg#i-dashboard"></use></svg>工作台</a>
+      <div class="nav-group">日报填报</div>
+      <a class="nav-item active" href="print.html"><svg width="18" height="18"><use href="icons.svg#i-print"></use></svg>印刷部日报</a>
+      <a class="nav-item" href="lamination.html"><svg width="18" height="18"><use href="icons.svg#i-layers"></use></svg>复合部日报</a>
+      <a class="nav-item" href="bagmaking.html"><svg width="18" height="18"><use href="icons.svg#i-bag"></use></svg>制袋部日报</a>
+      <div class="nav-group">数据管理</div>
+      <a class="nav-item" href="reports.html"><svg width="18" height="18"><use href="icons.svg#i-report"></use></svg>报表查询</a>
+      <a class="nav-item" href="users.html"><svg width="18" height="18"><use href="icons.svg#i-users"></use></svg>用户管理</a>
+    </nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">印刷部日报表</div>
+      <div class="topbar-right">
+        <span class="tag tag-blue"><span class="dot"></span>待审核 2 行</span>
+        <div class="topbar-user">
+          <div class="avatar">陈</div>
+          <span class="topbar-username">陈机长 · 印刷部</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <!-- 公共信息 -->
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">公共信息</div>
+            <div class="card-sub">日报日期与当班信息，整表共用</div>
+          </div>
+        </div>
+        <div class="card-body filter-bar">
+          <div class="field" style="min-width:180px">
+            <label class="field-label">日期<span class="req">*</span></label>
+            <input class="input" type="date" value="2026-11-23">
+          </div>
+          <div class="field" style="min-width:150px">
+            <label class="field-label">当班机长</label>
+            <input class="input" type="text" value="陈建国">
+          </div>
+          <div class="field" style="min-width:150px">
+            <label class="field-label">印刷机台</label>
+            <select class="select"><option>全部机台</option><option selected>1 号印刷机（八色）</option><option>2 号印刷机（六色）</option></select>
+          </div>
+          <div class="toolbar" style="margin-left:auto">
+            <button class="btn btn-outline"><svg width="15" height="15"><use href="icons.svg#i-download"></use></svg>导出今日</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 明细表 -->
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">明细记录 <span class="card-sub">共 5 行</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm"><svg width="14" height="14"><use href="icons.svg#i-plus"></use></svg>添加一行</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl form-table">
+            <thead>
+              <tr>
+                <th style="width:110px">生产单号<i class="req" style="color:var(--danger)">*</i></th>
+                <th style="width:96px">上机时间</th>
+                <th style="width:88px">机速<br>m/min</th>
+                <th style="width:96px">材质</th>
+                <th style="width:82px">厚度 μm</th>
+                <th style="width:120px">尺寸规格</th>
+                <th style="width:110px">要求米数</th>
+                <th style="width:110px">实际米数</th>
+                <th style="width:150px">印刷颜色</th>
+                <th style="width:92px">印刷时间<br>分钟</th>
+                <th style="width:84px">签名</th>
+                <th style="min-width:160px">备注</th>
+                <th style="width:44px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input class="cell-input" value="YS-20261123-01"></td>
+                <td><input class="cell-input" type="time" value="08:05"></td>
+                <td><input class="cell-input num" value="175"></td>
+                <td><input class="cell-input" value="PET/PE"></td>
+                <td><input class="cell-input num" value="12"></td>
+                <td><input class="cell-input" value="350×220"></td>
+                <td><input class="cell-input num" value="3000"></td>
+                <td><input class="cell-input num" value="2980"></td>
+                <td><input class="cell-input" value="黑/红/蓝/黄"></td>
+                <td><input class="cell-input num" value="17.0"></td>
+                <td><input class="cell-input" value="陈建国"></td>
+                <td><input class="cell-input" value="白膜套印正常"></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+              <tr>
+                <td><input class="cell-input" value="YS-20261123-02"></td>
+                <td><input class="cell-input" type="time" value="09:40"></td>
+                <td><input class="cell-input num" value="160"></td>
+                <td><input class="cell-input" value="NY/PE"></td>
+                <td><input class="cell-input num" value="15"></td>
+                <td><input class="cell-input" value="420×300"></td>
+                <td><input class="cell-input num" value="4500"></td>
+                <td><input class="cell-input num" value="4420"></td>
+                <td><input class="cell-input" value="黑/白/红"></td>
+                <td><input class="cell-input num" value="27.6"></td>
+                <td><input class="cell-input" value="陈建国"></td>
+                <td><input class="cell-input" value="版辊 2 号换色多"></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+              <tr>
+                <td><input class="cell-input" value="YS-20261123-03"></td>
+                <td><input class="cell-input" type="time" value="10:42"></td>
+                <td><input class="cell-input num" value="180"></td>
+                <td><input class="cell-input" value="PET/CPP"></td>
+                <td><input class="cell-input num" value="12"></td>
+                <td><input class="cell-input" value="280×180"></td>
+                <td><input class="cell-input num" value="2200"></td>
+                <td><input class="cell-input num" value="2150"></td>
+                <td><input class="cell-input" value="四色+白"></td>
+                <td><input class="cell-input num" value="12.0"></td>
+                <td><input class="cell-input" value="李明"></td>
+                <td><input class="cell-input" value=""></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+              <tr>
+                <td><input class="cell-input" value="YS-20261123-04"></td>
+                <td><input class="cell-input" type="time" value="13:20"></td>
+                <td><input class="cell-input num" value="165"></td>
+                <td><input class="cell-input" value="OPP/CPP"></td>
+                <td><input class="cell-input num" value="20"></td>
+                <td><input class="cell-input" value="500×320"></td>
+                <td><input class="cell-input num" value="5200"></td>
+                <td><input class="cell-input num" value="5100"></td>
+                <td><input class="cell-input" value="六色+白"></td>
+                <td><input class="cell-input num" value="30.9"></td>
+                <td><input class="cell-input" value="陈建国"></td>
+                <td><input class="cell-input" value="下午套色微调 2 次"></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+              <tr>
+                <td><input class="cell-input" value="YS-20261123-05"></td>
+                <td><input class="cell-input" type="time" value="15:10"></td>
+                <td><input class="cell-input num" value="" placeholder="待填"></td>
+                <td><input class="cell-input" value="PET/AL/PE"></td>
+                <td><input class="cell-input num" value="9"></td>
+                <td><input class="cell-input" value="360×240"></td>
+                <td><input class="cell-input num" value="3800"></td>
+                <td><input class="cell-input num" value="" placeholder="待填"></td>
+                <td><input class="cell-input" value="黑/红"></td>
+                <td><input class="cell-input num" value="" placeholder="待填"></td>
+                <td><input class="cell-input" value=""></td>
+                <td><input class="cell-input" value="铝箔层张力待调整"></td>
+                <td><button class="row-del" title="删除该行"><svg width="15" height="15"><use href="icons.svg#i-trash"></use></svg></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-foot">
+          <span class="form-foot-sum">合计：要求 <b>18,700</b> m · 实际 <b>14,650</b> m · 完成率 <b>78.3%</b>（未含第 5 行）</span>
+          <span class="toolbar" style="margin-left:auto">
+            <button class="btn btn-ghost">存草稿</button>
+            <button class="btn btn-primary"><svg width="15" height="15"><use href="icons.svg#i-check"></use></svg>提交日报</button>
+          </span>
+        </div>
+      </section>
+
+      <p class="card-sub" style="padding:0 4px">提示：印刷时间（分钟）按「实际米数 ÷ 机速」自动计算，可手工修正；提交后由部门主管审核。</p>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>登录 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  body { display: flex; }
+  .login-aside {
+    width: 46%;
+    background: linear-gradient(160deg, #0E1F4E 0%, #16337E 55%, #1D46C8 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 56px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .login-aside::before {
+    content: "";
+    position: absolute;
+    right: -140px; top: -140px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.14);
+  }
+  .login-aside::after {
+    content: "";
+    position: absolute;
+    right: -60px; bottom: -180px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.10);
+  }
+  .aside-brand { display: flex; align-items: center; gap: 12px; position: relative; z-index: 1; }
+  .aside-logo {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.22);
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 15px;
+  }
+  .aside-name { font-size: 17px; font-weight: 600; letter-spacing: .02em; }
+  .aside-hero { position: relative; z-index: 1; }
+  .aside-hero h1 { font-size: 32px; line-height: 1.35; font-weight: 700; letter-spacing: -.01em; }
+  .aside-hero p { margin-top: 16px; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.72); max-width: 30em; }
+  .aside-points { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
+  .aside-point { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,.85); }
+  .aside-point i {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(255,255,255,.14);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .aside-point svg { width: 13px; height: 13px; }
+  .aside-foot { position: relative; z-index: 1; font-size: 13px; color: rgba(255,255,255,.5); }
+
+  .login-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; min-width: 0; }
+  .login-box { width: 380px; max-width: 100%; flex-shrink: 1; }
+  .login-box h2 { font-size: 24px; font-weight: 700; letter-spacing: -.01em; }
+  .login-box .sub { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .login-form { margin-top: 36px; display: flex; flex-direction: column; gap: var(--space-4); }
+  .login-form .input { height: 44px; font-size: 15px; padding-left: 40px; }
+  .input-icon { position: relative; }
+  .input-icon svg {
+    position: absolute; left: 13px; top: 50%;
+    transform: translateY(-50%);
+    width: 17px; height: 17px; color: var(--muted-2);
+    pointer-events: none;
+  }
+  .login-meta { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); }
+  .remember { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .checkbox {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    position: relative;
+  }
+  .checkbox.on { background: var(--primary); border-color: var(--primary); }
+  .checkbox.on::after {
+    content: "";
+    position: absolute; left: 4.5px; top: 1.5px;
+    width: 4px; height: 8px;
+    border: solid #fff; border-width: 0 1.8px 1.8px 0;
+    transform: rotate(45deg);
+  }
+  .forgot { color: var(--primary); display: inline-flex; align-items: center; padding: 6px 0; }
+  .forgot:hover { text-decoration: underline; }
+  .btn-login { width: 100%; height: 44px; font-size: 15px; }
+  .login-tip {
+    margin-top: 28px;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .login-tip b { color: var(--text); font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .login-aside { display: none; }
+    .login-main { background: var(--surface); }
+  }
+</style>
+</head>
+<body>
+  <aside class="login-aside">
+    <div class="aside-brand">
+      <div class="aside-logo">包</div>
+      <div class="aside-name">软包装生产日报表系统</div>
+    </div>
+    <div class="aside-hero">
+      <h1>纸质日报表，<br>一上线。</h1>
+      <p>印刷、复合、制袋三个部门统一在线填报，机速、米数、废料自动汇总，管理层随时掌握当天生产全貌。</p>
+      <div class="aside-points">
+        <div class="aside-point"><i><svg><use href="icons.svg#i-print"></use></svg></i>印刷部 · 逐单记录上机与实际印刷米数</div>
+        <div class="aside-point"><i><svg><use href="icons.svg#i-layers"></use></svg></i>复合部 · 干式 / 无溶剂机型分类统计</div>
+        <div class="aside-point"><i><svg><use href="icons.svg#i-bag"></use></svg></i>制袋部 · 八种袋型、1–8 号机全覆盖</div>
+      </div>
+    </div>
+    <div class="aside-foot">© 2026 生产部 · 信息管理组</div>
+  </aside>
+
+  <main class="login-main">
+    <div class="login-box">
+      <h2>欢迎登录</h2>
+      <p class="sub">请使用车间分配的账号登录系统</p>
+      <form class="login-form" onsubmit="return false">
+        <div class="field">
+          <label class="field-label">用户名</label>
+          <div class="input-icon">
+            <svg><use href="icons.svg#i-users"></use></svg>
+            <input class="input" type="text" placeholder="请输入用户名" value="yinshua-01">
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">密码</label>
+          <div class="input-icon">
+            <svg><use href="icons.svg#i-shield"></use></svg>
+            <input class="input" type="password" placeholder="请输入密码" value="123456">
+          </div>
+        </div>
+        <div class="login-meta">
+          <label class="remember"><span class="checkbox on"></span>记住登录状态</label>
+          <a class="forgot" href="login.html">忘记密码？</a>
+        </div>
+        <a class="btn btn-primary btn-login" href="dashboard.html">登 录</a>
+      </form>
+      <div class="login-tip">
+        <b>演示账号：</b>印刷部 yinshua-01 ／ 复合部 fuhe-01 ／ 制袋部 zhidai-01 ／ 管理员 admin，密码均为 123456。
+      </div>
+    </div>
+  </main>
+</body>
+</html>

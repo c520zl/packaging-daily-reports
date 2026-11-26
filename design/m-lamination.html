@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="app">
+<title>复合部填报 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="app with-submitbar">
+  <header class="m-head">
+    <div class="m-head-row">
+      <a class="m-back" href="m-home.html">
+        <svg width="18" height="18" style="color:#fff"><use href="icons.svg#i-arrow-right" transform="rotate(180 12 12)"></use></svg>
+      </a>
+      <div>
+        <div class="m-title">复合部日报填报</div>
+        <div class="sub">第 3 行 · 新增记录</div>
+      </div>
+      <div class="m-head-date">11-23</div>
+    </div>
+  </header>
+
+  <main class="m-body">
+    <!-- 单号与机型 -->
+    <section class="m-card">
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">生产单号<span class="req">*</span></label>
+          <input class="m-input" type="text" value="FH-20261123-03">
+        </div>
+        <div class="m-field">
+          <label class="m-label">机型<span class="req">*</span></label>
+          <div class="m-seg">
+            <div class="m-seg-item on">干式</div>
+            <div class="m-seg-item">无溶剂</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 工艺参数 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">工艺参数</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">次数（复合层数）<span class="req">*</span></label>
+          <div class="m-stepper">
+            <button class="m-step-btn">−</button>
+            <div class="m-step-val">3</div>
+            <button class="m-step-btn">＋</button>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">机速<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="decimal" value="120">
+            <span class="m-unit">m/min</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">材质<span class="req">*</span></label>
+          <input class="m-input" type="text" value="PET/PE">
+        </div>
+        <div class="m-field">
+          <label class="m-label">规格<span class="req">*</span></label>
+          <input class="m-input" type="text" value="350×220" placeholder="长×宽 mm">
+        </div>
+      </div>
+    </section>
+
+    <!-- 生产数量 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">生产数量</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">工单要求米数<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="2900">
+            <span class="m-unit">m</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">实际复合米数<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="2860">
+            <span class="m-unit">m</span>
+          </div>
+        </div>
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">卷数<span class="req">*</span></label>
+            <div class="m-stepper">
+              <button class="m-step-btn">−</button>
+              <div class="m-step-val">10</div>
+              <button class="m-step-btn">＋</button>
+            </div>
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">调机米数</label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="numeric" value="90">
+              <span class="m-unit">m</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">印刷剩余</label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="40">
+            <span class="m-unit">m</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 签名 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">签名</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">签名<span class="req">*</span></label>
+          <input class="m-input" type="text" value="刘伟">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部提交条 -->
+  <div class="m-submitbar">
+    <div class="sum">已填 <b>2</b> 行 · 复合 <b>7,210</b> m</div>
+    <button class="m-btn m-btn-outline">存草稿</button>
+    <a class="m-btn m-btn-primary" href="m-success.html">保存本行</a>
+  </div>
+</div>
+</body>
+</html>

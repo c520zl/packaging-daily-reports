@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="app">
+<title>印刷部填报 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="app with-submitbar">
+  <header class="m-head">
+    <div class="m-head-row">
+      <a class="m-back" href="m-home.html">
+        <svg width="18" height="18" style="color:#fff"><use href="icons.svg#i-arrow-right" transform="rotate(180 12 12)"></use></svg>
+      </a>
+      <div>
+        <div class="m-title">印刷部日报填报</div>
+        <div class="sub">第 5 行 · 新增记录</div>
+      </div>
+      <div class="m-head-date">11-23</div>
+    </div>
+  </header>
+
+  <main class="m-body">
+    <!-- 生产单号 -->
+    <section class="m-card">
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">生产单号<span class="req">*</span></label>
+          <input class="m-input" type="text" value="YS-20261123-05" placeholder="如 YS-20261123-01">
+        </div>
+      </div>
+    </section>
+
+    <!-- 上机信息 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">上机信息</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">上机时间<span class="req">*</span></label>
+          <input class="m-input" type="time" value="15:10">
+        </div>
+        <div class="m-field">
+          <label class="m-label">机速<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="decimal" placeholder="待填">
+            <span class="m-unit">m/min</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">印刷颜色<span class="req">*</span></label>
+          <div class="m-chips">
+            <span class="m-chip on">黑</span>
+            <span class="m-chip on">红</span>
+            <span class="m-chip">蓝</span>
+            <span class="m-chip">黄</span>
+            <span class="m-chip">白</span>
+            <span class="m-chip">专色</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 材料信息 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">材料信息</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">材质<span class="req">*</span></label>
+          <input class="m-input" type="text" value="PET/AL/PE">
+        </div>
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">材质厚度</label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="numeric" value="9">
+              <span class="m-unit">μm</span>
+            </div>
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">尺寸规格<span class="req">*</span></label>
+            <input class="m-input" type="text" value="360×240" placeholder="长×宽 mm">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 生产数量 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">生产数量</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">要求印刷米数<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="3800">
+            <span class="m-unit">m</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">实际印刷米数<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" placeholder="下班前填写">
+            <span class="m-unit">m</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">印刷时间<span class="m-auto">自动计算</span></label>
+          <div class="m-calc">
+            待实际米数填入后自动算出
+            <span class="hint">实际米数 ÷ 机速</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 签名与备注 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">签名与备注</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">签名<span class="req">*</span></label>
+          <input class="m-input" type="text" value="李明">
+        </div>
+        <div class="m-field">
+          <label class="m-label">备注</label>
+          <textarea class="m-textarea" placeholder="如：铝箔层张力待调整">铝箔层张力待调整</textarea>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部提交条 -->
+  <div class="m-submitbar">
+    <div class="sum">今日已填 <b>4</b> 行 · 本行未保存</div>
+    <button class="m-btn m-btn-outline">存草稿</button>
+    <a class="m-btn m-btn-primary" href="m-success.html">保存本行</a>
+  </div>
+</div>
+</body>
+</html>

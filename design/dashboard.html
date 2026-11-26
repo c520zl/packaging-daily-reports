@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>工作台 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .quick-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: var(--surface);
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .quick-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+  .quick-icon { width: 42px; height: 42px; border-radius: var(--radius-md); display: grid; place-items: center; flex-shrink: 0; }
+  .quick-icon svg { width: 21px; height: 21px; }
+  .qi-print { background: var(--primary-weak); color: var(--primary); }
+  .qi-lam { background: var(--accent-weak); color: var(--accent); }
+  .qi-bag { background: var(--warning-weak); color: var(--warning); }
+  .quick-info { flex: 1; min-width: 0; }
+  .quick-name { font-size: var(--fs-md); font-weight: 600; }
+  .quick-desc { font-size: var(--fs-sm); color: var(--muted); margin-top: 4px; }
+  .quick-arrow { color: var(--muted-2); flex-shrink: 0; }
+
+  .dash-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-4); align-items: start; }
+
+  .dept-row { display: grid; grid-template-columns: 96px 1fr 120px; align-items: center; gap: var(--space-3); padding: 10px 0; }
+  .dept-row + .dept-row { border-top: 1px solid var(--line); }
+  .dept-name { font-size: var(--fs-sm); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .dept-bar { height: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+  .dept-bar i { display: block; height: 100%; border-radius: 999px; }
+  .dept-val { font-size: var(--fs-sm); text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  .dept-val b { color: var(--text); font-size: var(--fs-md); }
+
+  .feed-item { display: flex; gap: 12px; padding: 12px 0; align-items: flex-start; }
+  .feed-item + .feed-item { border-top: 1px solid var(--line); }
+  .feed-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+  .feed-text { font-size: var(--fs-sm); line-height: 1.6; color: var(--muted); }
+  .feed-text b { color: var(--text); font-weight: 600; }
+  .feed-time { font-size: var(--fs-xs); color: var(--muted-2); margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 1100px) {
+    .quick-grid { grid-template-columns: 1fr; }
+    .dash-cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">包</div>
+      <div class="brand-name">生产日报表</div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item active" href="dashboard.html"><svg width="18" height="18"><use href="icons.svg#i-dashboard"></use></svg>工作台</a>
+      <div class="nav-group">日报填报</div>
+      <a class="nav-item" href="print.html"><svg width="18" height="18"><use href="icons.svg#i-print"></use></svg>印刷部日报</a>
+      <a class="nav-item" href="lamination.html"><svg width="18" height="18"><use href="icons.svg#i-layers"></use></svg>复合部日报</a>
+      <a class="nav-item" href="bagmaking.html"><svg width="18" height="18"><use href="icons.svg#i-bag"></use></svg>制袋部日报</a>
+      <div class="nav-group">数据管理</div>
+      <a class="nav-item" href="reports.html"><svg width="18" height="18"><use href="icons.svg#i-report"></use></svg>报表查询</a>
+      <a class="nav-item" href="users.html"><svg width="18" height="18"><use href="icons.svg#i-users"></use></svg>用户管理</a>
+    </nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">工作台</div>
+      <div class="topbar-right">
+        <span class="topbar-date">2026-11-23 周一 · 白班</span>
+        <div class="topbar-user">
+          <div class="avatar">陈</div>
+          <span class="topbar-username">陈机长 · 印刷部</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label"><svg width="15" height="15"><use href="icons.svg#i-report"></use></svg>今日填报单据</div>
+          <div class="stat-value">27<span class="stat-unit">张</span></div>
+          <div class="stat-delta delta-up">▲ 较昨日 +4 张</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">印刷实际米数</div>
+          <div class="stat-value">18,640<span class="stat-unit">m</span></div>
+          <div class="stat-delta delta-up">▲ 完成率 96.2%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">复合实际米数</div>
+          <div class="stat-value">12,350<span class="stat-unit">m</span></div>
+          <div class="stat-delta delta-up">▲ 完成率 98.8%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">制袋完成数量</div>
+          <div class="stat-value">86,400<span class="stat-unit">个</span></div>
+          <div class="stat-delta delta-down">▼ 废料 12.6 kg</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">快捷填报</div>
+            <div class="card-sub">选择部门进入今日日报表填写</div>
+          </div>
+        </div>
+        <div class="card-body quick-grid">
+          <a class="quick-card" href="print.html">
+            <div class="quick-icon qi-print"><svg><use href="icons.svg#i-print"></use></svg></div>
+            <div class="quick-info">
+              <div class="quick-name">印刷部日报</div>
+              <div class="quick-desc">今日已填 8 行 · 上机 6 台</div>
+            </div>
+            <svg class="quick-arrow" width="18" height="18"><use href="icons.svg#i-arrow-right"></use></svg>
+          </a>
+          <a class="quick-card" href="lamination.html">
+            <div class="quick-icon qi-lam"><svg><use href="icons.svg#i-layers"></use></svg></div>
+            <div class="quick-info">
+              <div class="quick-name">复合部日报</div>
+              <div class="quick-desc">今日已填 6 行 · 干式 4 / 无溶剂 2</div>
+            </div>
+            <svg class="quick-arrow" width="18" height="18"><use href="icons.svg#i-arrow-right"></use></svg>
+          </a>
+          <a class="quick-card" href="bagmaking.html">
+            <div class="quick-icon qi-bag"><svg><use href="icons.svg#i-bag"></use></svg></div>
+            <div class="quick-info">
+              <div class="quick-name">制袋部日报</div>
+              <div class="quick-desc">今日已填 13 行 · 白班 8 / 夜班 5</div>
+            </div>
+            <svg class="quick-arrow" width="18" height="18"><use href="icons.svg#i-arrow-right"></use></svg>
+          </a>
+        </div>
+      </section>
+
+      <div class="dash-cols">
+        <section class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">近 7 日各部门实际产量</div>
+              <div class="card-sub">单位：米（制袋按完成数量折算，仅示意）</div>
+            </div>
+            <div class="card-actions legend">
+              <span><i class="bar-seg-print"></i>印刷</span>
+              <span><i class="bar-seg-lam"></i>复合</span>
+              <span><i class="bar-seg-bag"></i>制袋</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="bars">
+              <div class="bar-col"><span class="bar-val">38.2k</span><div class="bar-stack" style="height:72%"><div class="bar-seg-print" style="height:45%"></div><div class="bar-seg-lam" style="height:30%"></div><div class="bar-seg-bag" style="height:25%"></div></div><span class="bar-name">11-17</span></div>
+              <div class="bar-col"><span class="bar-val">41.5k</span><div class="bar-stack" style="height:78%"><div class="bar-seg-print" style="height:40%"></div><div class="bar-seg-lam" style="height:28%"></div><div class="bar-seg-bag" style="height:32%"></div></div><span class="bar-name">11-18</span></div>
+              <div class="bar-col"><span class="bar-val">35.8k</span><div class="bar-stack" style="height:67%"><div class="bar-seg-print" style="height:42%"></div><div class="bar-seg-lam" style="height:33%"></div><div class="bar-seg-bag" style="height:25%"></div></div><span class="bar-name">11-19</span></div>
+              <div class="bar-col"><span class="bar-val">22.4k</span><div class="bar-stack" style="height:42%"><div class="bar-seg-print" style="height:50%"></div><div class="bar-seg-lam" style="height:50%"></div></div><span class="bar-name">11-20 停机</span></div>
+              <div class="bar-col"><span class="bar-val">44.1k</span><div class="bar-stack" style="height:83%"><div class="bar-seg-print" style="height:38%"></div><div class="bar-seg-lam" style="height:30%"></div><div class="bar-seg-bag" style="height:32%"></div></div><span class="bar-name">11-21</span></div>
+              <div class="bar-col"><span class="bar-val">39.6k</span><div class="bar-stack" style="height:75%"><div class="bar-seg-print" style="height:44%"></div><div class="bar-seg-lam" style="height:26%"></div><div class="bar-seg-bag" style="height:30%"></div></div><span class="bar-name">11-22</span></div>
+              <div class="bar-col"><span class="bar-val">36.9k</span><div class="bar-stack" style="height:70%"><div class="bar-seg-print" style="height:46%"></div><div class="bar-seg-lam" style="height:29%"></div><div class="bar-seg-bag" style="height:25%"></div></div><span class="bar-name">今日</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <div class="card-title">最近填报动态</div>
+            <div class="card-actions"><a class="link-btn" href="reports.html" style="padding:12px 0 12px 12px">查看全部</a></div>
+          </div>
+          <div class="card-body" style="padding-top:8px">
+            <div class="feed-item"><span class="feed-dot" style="background:var(--primary)"></span><div><div class="feed-text"><b>李明</b> 提交印刷部日报：生产单号 <b>YS-20261123-03</b>，实际印刷 2,150 m</div><div class="feed-time">10:42</div></div></div>
+            <div class="feed-item"><span class="feed-dot" style="background:var(--accent)"></span><div><div class="feed-text"><b>王强</b> 提交复合部日报：生产单号 <b>FH-20261123-01</b>，无溶剂机 · 实际复合 1,860 m</div><div class="feed-time">10:15</div></div></div>
+            <div class="feed-item"><span class="feed-dot" style="background:var(--warning)"></span><div><div class="feed-text"><b>赵芳</b> 提交制袋部日报：3 号机 · 白班 · 三边封袋，完成 6,200 个</div><div class="feed-time">09:58</div></div></div>
+            <div class="feed-item"><span class="feed-dot" style="background:var(--primary)"></span><div><div class="feed-text"><b>陈机长</b> 修改印刷部日报：YS-20261123-01 机速由 168 调整为 175 m/min</div><div class="feed-time">09:30</div></div></div>
+            <div class="feed-item"><span class="feed-dot" style="background:var(--muted-2)"></span><div><div class="feed-text"><b>管理员</b> 启用账号 <b>zhidai-02</b>（夜班机长）</div><div class="feed-time">08:47</div></div></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="app">
+<title>审核工作台 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mobile.css">
+<style>
+  .review-head-nums {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: var(--radius-lg);
+    padding: 14px 0;
+  }
+  .review-diff { display: flex; flex-direction: column; gap: 0; }
+  .review-diff-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .review-diff-row + .review-diff-row { border-top: 1px solid var(--line); }
+  .review-diff-row .lab { color: var(--muted); flex-shrink: 0; }
+  .review-diff-row .val { font-variant-numeric: tabular-nums; font-weight: 500; text-align: right; }
+  .review-diff-row .val.changed { color: var(--warning); }
+  .review-diff-row .val.changed::after {
+    content: "改";
+    font-size: 10px;
+    background: var(--warning-weak);
+    color: var(--warning);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    vertical-align: 2px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="app with-submitbar">
+  <header class="m-head">
+    <div class="m-head-row">
+      <a class="m-back" href="m-home.html">
+        <svg width="18" height="18" style="color:#fff"><use href="icons.svg#i-arrow-right" transform="rotate(180 12 12)"></use></svg>
+      </a>
+      <div>
+        <div class="m-title">审核工作台</div>
+        <div class="sub">印刷部主管 · 陈建国</div>
+      </div>
+      <div class="m-head-date">11-23</div>
+    </div>
+    <div class="review-head-nums">
+      <div class="m-rn"><div class="k" style="color:rgba(255,255,255,.75)">待我审核</div><div class="v" style="color:#fff">3</div></div>
+      <div class="m-rn" style="border-left:1px solid rgba(255,255,255,.2); border-right:1px solid rgba(255,255,255,.2)"><div class="k" style="color:rgba(255,255,255,.75)">今日已审</div><div class="v" style="color:#fff">11</div></div>
+      <div class="m-rn"><div class="k" style="color:rgba(255,255,255,.75)">今日退回</div><div class="v" style="color:#FFD6D6">2</div></div>
+    </div>
+  </header>
+
+  <main class="m-body">
+    <!-- 待审单据 1 -->
+    <section class="m-card">
+      <div class="m-card-head">
+        <div>
+          <div class="m-card-title">YS-20261123-03</div>
+          <div class="m-card-sub">李明 · 提交于 09:38 · 重新提交（曾被退回 1 次）</div>
+        </div>
+        <span class="tag tag-orange" style="margin-left:auto"><span class="dot"></span>待审核</span>
+      </div>
+      <div class="review-diff">
+        <div class="review-diff-row"><span class="lab">机台 / 材质</span><span class="val">2 号印刷机 · PET/CPP</span></div>
+        <div class="review-diff-row"><span class="lab">尺寸规格</span><span class="val">280×180 mm</span></div>
+        <div class="review-diff-row"><span class="lab">要求米数</span><span class="val">2,200 m</span></div>
+        <div class="review-diff-row"><span class="lab">实际米数</span><span class="val changed">2,150 m</span></div>
+        <div class="review-diff-row"><span class="lab">机速 / 印刷时间</span><span class="val">180 m/min · 12.0 分</span></div>
+        <div class="review-diff-row" style="background:var(--danger-weak)">
+          <span class="lab" style="color:#B91C1C">上次退回原因</span>
+          <span class="val" style="color:#B91C1C; font-weight:400; font-size:13px">实际印刷米数漏填 → 已补填</span>
+        </div>
+      </div>
+      <div class="m-card-body review-actions" style="padding-top:12px">
+        <a class="m-btn m-btn-outline m-btn-block" href="m-review-reject.html">退回</a>
+        <a class="m-btn m-btn-primary m-btn-block" href="m-success.html">通过</a>
+      </div>
+    </section>
+
+    <!-- 待审单据 2 -->
+    <section class="m-card">
+      <div class="m-card-head">
+        <div>
+          <div class="m-card-title">YS-20261123-04</div>
+          <div class="m-card-sub">李明 · 提交于 13:58</div>
+        </div>
+        <span class="tag tag-orange" style="margin-left:auto"><span class="dot"></span>待审核</span>
+      </div>
+      <div class="review-diff">
+        <div class="review-diff-row"><span class="lab">机台 / 材质</span><span class="val">2 号印刷机 · OPP/CPP</span></div>
+        <div class="review-diff-row"><span class="lab">要求米数</span><span class="val">5,200 m</span></div>
+        <div class="review-diff-row"><span class="lab">实际米数</span><span class="val">5,100 m</span></div>
+        <div class="review-diff-row"><span class="lab">机速 / 印刷时间</span><span class="val">165 m/min · 30.9 分</span></div>
+      </div>
+      <div class="m-card-body review-actions" style="padding-top:12px">
+        <a class="m-btn m-btn-outline m-btn-block" href="m-review-reject.html">退回</a>
+        <a class="m-btn m-btn-primary m-btn-block" href="m-success.html">通过</a>
+      </div>
+    </section>
+
+    <!-- 待审单据 3 -->
+    <section class="m-card">
+      <div class="m-card-head">
+        <div>
+          <div class="m-card-title">YS-20261123-05</div>
+          <div class="m-card-sub">李明 · 提交于 15:26 · 机速与实际米数待补</div>
+        </div>
+        <span class="tag tag-orange" style="margin-left:auto"><span class="dot"></span>待审核</span>
+      </div>
+      <div class="review-diff">
+        <div class="review-diff-row"><span class="lab">机台 / 材质</span><span class="val">2 号印刷机 · PET/AL/PE</span></div>
+        <div class="review-diff-row"><span class="lab">要求米数</span><span class="val">3,800 m</span></div>
+        <div class="review-diff-row" style="background:var(--warning-weak)">
+          <span class="lab" style="color:var(--warning)">缺失字段</span>
+          <span class="val" style="color:var(--warning); font-weight:400; font-size:13px">机速、实际印刷米数未填写</span>
+        </div>
+      </div>
+      <div class="m-card-body review-actions" style="padding-top:12px">
+        <a class="m-btn m-btn-outline m-btn-block" href="m-review-reject.html">退回补填</a>
+        <span class="m-btn m-btn-primary m-btn-block" aria-disabled="true">通过</span>
+      </div>
+    </section>
+  </main>
+
+  <div class="m-submitbar">
+    <div class="sum">还有 <b>3</b> 单待审 · 全部处理完可下班</div>
+    <button class="m-btn m-btn-outline">批量通过</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/daily_report?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root          # TODO: 改成你的数据库密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 2MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+app:
+  jwt:
+    # 生产环境务必通过环境变量 APP_JWT_SECRET 注入 64 位以上随机字符串（未配置时启动即失败）
+    secret: "LtjoXOEXII2jQ4m/BXCqn3Gm7F87qfM44W6xIvw//3ZbAw0/Rzr/DXstkqYFGos7dzwPNygNL+D1Pbh6LEW/LQ=="
+    expire-hours: 24
+
+# 文件存储：RustFS 对象存储（S3 兼容）为唯一存储后端
+storage:
+  rustfs:
+    endpoint: http://localhost:9000
+    access-key: rustfsadmin
+    secret-key: rustfsadmin
+    bucket: daily-report
+    public-url: http://localhost:9000
+
+cors:
+  allowed-origins: "http://localhost:5173"
+
+logging:
+  level:
+    com.factory.report: debug

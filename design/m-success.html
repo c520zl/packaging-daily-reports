@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="app">
+<title>提交成功 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mobile.css">
+<style>
+  .success-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 48px 24px 24px; }
+  .success-icon {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--success-weak);
+    color: var(--success);
+    display: grid; place-items: center;
+    margin-bottom: 20px;
+  }
+  .success-icon svg { width: 34px; height: 34px; }
+  .success-title { font-size: 20px; font-weight: 700; }
+  .success-desc { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.7; }
+  .success-card {
+    width: 100%;
+    margin-top: 24px;
+    text-align: left;
+  }
+  .success-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+    max-width: 100%;
+  }
+  .success-actions .m-btn { flex: 1; min-width: 0; }
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="success-wrap">
+    <div class="success-icon"><svg><use href="icons.svg#i-check"></use></svg></div>
+    <div class="success-title">提交成功</div>
+    <div class="success-desc">YS-20261123-05 已提交给陈机长审核<br>审核结果将在「通知」中提醒您</div>
+
+    <section class="m-card success-card">
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">生产单号</label>
+          <div style="font-size:15px; font-weight:600; font-variant-numeric:tabular-nums">YS-20261123-05</div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">本行内容</label>
+          <div style="font-size:14px; line-height:1.8; color:var(--muted)">
+            PET/AL/PE · 360×240 · 要求 3,800 m<br>
+            机速与实际米数待下班前补填
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">当前状态</label>
+          <div><span class="tag tag-orange"><span class="dot"></span>待主管审核</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="success-actions">
+      <a class="m-btn m-btn-outline" href="m-records.html" style="flex:1">我的记录</a>
+      <a class="m-btn m-btn-primary" href="m-print.html" style="flex:1">继续填报</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="app">
+<title>制袋部填报 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="app with-submitbar">
+  <header class="m-head">
+    <div class="m-head-row">
+      <a class="m-back" href="m-home.html">
+        <svg width="18" height="18" style="color:#fff"><use href="icons.svg#i-arrow-right" transform="rotate(180 12 12)"></use></svg>
+      </a>
+      <div>
+        <div class="m-title">制袋部日报填报</div>
+        <div class="sub">第 6 行 · 新增记录</div>
+      </div>
+      <div class="m-head-date">11-23</div>
+    </div>
+  </header>
+
+  <main class="m-body">
+    <!-- 班次与机台 -->
+    <section class="m-card">
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">班次<span class="req">*</span></label>
+          <div class="m-seg">
+            <div class="m-seg-item on">白班</div>
+            <div class="m-seg-item">夜班</div>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">机台<span class="req">*</span></label>
+          <div class="m-grid-select">
+            <div class="m-grid-item">1 号</div>
+            <div class="m-grid-item">2 号</div>
+            <div class="m-grid-item on">3 号</div>
+            <div class="m-grid-item">4 号</div>
+            <div class="m-grid-item">5 号</div>
+            <div class="m-grid-item">6 号</div>
+            <div class="m-grid-item">7 号</div>
+            <div class="m-grid-item">8 号</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 人员信息 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">人员信息</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">机长<span class="req">*</span></label>
+            <input class="m-input" type="text" value="赵德海">
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">捡袋员<span class="req">*</span></label>
+            <input class="m-input" type="text" value="孙晓燕">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 生产信息 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">生产信息</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-field">
+          <label class="m-label">生产单号<span class="req">*</span></label>
+          <input class="m-input" type="text" value="DB-20261123-01">
+        </div>
+        <div class="m-field">
+          <label class="m-label">袋型<span class="req">*</span></label>
+          <div class="m-input" style="display:flex; align-items:center; justify-content:space-between; color:var(--text)">
+            三边封袋
+            <svg width="16" height="16" style="color:var(--muted-2)"><use href="icons.svg#i-arrow-right" transform="rotate(90 12 12)"></use></svg>
+          </div>
+        </div>
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">成品规格<span class="req">*</span></label>
+            <input class="m-input" type="text" value="150×230">
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">机速<span class="req">*</span></label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="numeric" value="110">
+              <span class="m-unit">m/min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 米数统计 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">米数统计</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">来料米数<span class="req">*</span></label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="numeric" value="1850">
+              <span class="m-unit">m</span>
+            </div>
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">调机米数</label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="numeric" value="45">
+              <span class="m-unit">m</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">结束米数<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="1805">
+            <span class="m-unit">m</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">完成数量<span class="req">*</span></label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="6200">
+            <span class="m-unit">个</span>
+          </div>
+        </div>
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">废料</label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="decimal" value="3.2">
+              <span class="m-unit">kg</span>
+            </div>
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">余料</label>
+            <div class="m-unit-wrap">
+              <input class="m-input num with-unit" type="number" inputmode="decimal" value="18.0">
+              <span class="m-unit">kg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 工时与质量 -->
+    <section class="m-card">
+      <div class="m-card-head"><div class="m-card-title">工时与质量</div></div>
+      <div class="m-card-body" style="padding-top:2px; padding-bottom:2px">
+        <div class="m-row2">
+          <div class="m-field m-field-inline">
+            <label class="m-label">工时起<span class="req">*</span></label>
+            <input class="m-input" type="time" value="08:00">
+          </div>
+          <div class="m-field m-field-inline">
+            <label class="m-label">工时止<span class="req">*</span></label>
+            <input class="m-input" type="time" value="16:00">
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">不良品数量</label>
+          <div class="m-unit-wrap">
+            <input class="m-input num with-unit" type="number" inputmode="numeric" value="35">
+            <span class="m-unit">个</span>
+          </div>
+        </div>
+        <div class="m-field">
+          <label class="m-label">异常原因</label>
+          <textarea class="m-textarea" placeholder="如：封口温度偏高，调机 40 分钟"></textarea>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部提交条 -->
+  <div class="m-submitbar">
+    <div class="sum">完成 <b>6,200</b> 个 · 废料 <b>3.2</b> kg</div>
+    <button class="m-btn m-btn-outline">存草稿</button>
+    <a class="m-btn m-btn-primary" href="m-success.html">保存本行</a>
+  </div>
+</div>
+</body>
+</html>

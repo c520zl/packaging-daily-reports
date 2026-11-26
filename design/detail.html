@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>报表详情 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .detail-cols { display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--space-4); align-items: start; }
+  .kv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3) var(--space-5); }
+  .kv { min-width: 0; }
+  .kv .k { font-size: var(--fs-xs); color: var(--muted); }
+  .kv .v { font-size: var(--fs-md); font-weight: 500; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .kv .v.sub-val { font-weight: 400; font-size: var(--fs-sm); }
+  @media (max-width: 768px) {
+    .kv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3) var(--space-4); }
+    .kv .k, .kv .v { white-space: normal; }
+    .kv-grid .kv:nth-child(1) { grid-column: span 2; }
+    .kv-grid .kv[style*="span 2"] { grid-column: span 2; }
+    .detail-cols { grid-template-columns: 1fr; }
+    .main-wrap { margin-left: 64px; }
+    .topbar { flex-wrap: wrap; height: auto; padding: 60px 16px 10px; row-gap: 6px; }
+    .topbar-title { font-size: var(--fs-md); }
+    .topbar-right { margin-left: 0; width: 100%; justify-content: space-between; }
+  }
+  .audit-step { display: flex; gap: 12px; position: relative; padding-bottom: 20px; min-height: 44px; }
+  .audit-step:last-child { padding-bottom: 0; }
+  .audit-step::before {
+    content: "";
+    position: absolute; left: 11px; top: 30px; bottom: 4px;
+    width: 2px; background: var(--line);
+  }
+  .audit-step:last-child::before { display: none; }
+  .audit-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    z-index: 1;
+    margin-top: 10px;
+  }
+  .audit-dot svg { width: 12px; height: 12px; }
+  .audit-title { font-size: var(--fs-sm); font-weight: 600; }
+  .audit-desc { font-size: var(--fs-xs); color: var(--muted); margin-top: 3px; line-height: 1.6; }
+  .audit-time { font-size: var(--fs-xs); color: var(--muted-2); margin-top: 3px; font-variant-numeric: tabular-nums; }
+  .reject-banner {
+    background: var(--danger-weak);
+    border: 1px solid #F5C2C2;
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    font-size: var(--fs-sm);
+    color: #B91C1C;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">包</div>
+      <div class="brand-name">生产日报表</div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html"><svg width="18" height="18"><use href="icons.svg#i-dashboard"></use></svg>工作台</a>
+      <div class="nav-group">日报填报</div>
+      <a class="nav-item" href="print.html"><svg width="18" height="18"><use href="icons.svg#i-print"></use></svg>印刷部日报</a>
+      <a class="nav-item" href="lamination.html"><svg width="18" height="18"><use href="icons.svg#i-layers"></use></svg>复合部日报</a>
+      <a class="nav-item" href="bagmaking.html"><svg width="18" height="18"><use href="icons.svg#i-bag"></use></svg>制袋部日报</a>
+      <div class="nav-group">数据管理</div>
+      <a class="nav-item active" href="reports.html"><svg width="18" height="18"><use href="icons.svg#i-report"></use></svg>报表查询</a>
+      <a class="nav-item" href="users.html"><svg width="18" height="18"><use href="icons.svg#i-users"></use></svg>用户管理</a>
+    </nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">报表详情 · YS-20261123-03</div>
+      <div class="topbar-right">
+        <span class="tag tag-orange"><span class="dot"></span>待审核</span>
+        <div class="topbar-user">
+          <div class="avatar">陈</div>
+          <span class="topbar-username">陈机长 · 印刷部主管</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="detail-cols">
+        <!-- 左：单据信息 -->
+        <div style="display:flex; flex-direction:column; gap: var(--space-4); min-width:0">
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">印刷部日报 · 明细信息</div>
+                <div class="card-sub">单号 YS-20261123-03 · 录入人 李明（yinshua-02）</div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-outline btn-sm"><svg width="14" height="14"><use href="icons.svg#i-edit"></use></svg>编辑</button>
+                <button class="btn btn-danger-weak btn-sm"><svg width="14" height="14"><use href="icons.svg#i-trash"></use></svg>删除</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="kv-grid">
+                <div class="kv"><div class="k">生产单号</div><div class="v">YS-20261123-03</div></div>
+                <div class="kv"><div class="k">日期</div><div class="v">2026-11-23</div></div>
+                <div class="kv"><div class="k">机台</div><div class="v">2 号印刷机</div></div>
+                <div class="kv"><div class="k">上机时间</div><div class="v">10:42</div></div>
+                <div class="kv"><div class="k">机速</div><div class="v">180 m/min</div></div>
+                <div class="kv"><div class="k">材质</div><div class="v">PET/CPP</div></div>
+                <div class="kv"><div class="k">材质厚度</div><div class="v">12 μm</div></div>
+                <div class="kv"><div class="k">尺寸规格</div><div class="v">280×180</div></div>
+                <div class="kv"><div class="k">印刷颜色</div><div class="v">四色+白</div></div>
+                <div class="kv"><div class="k">要求印刷米数</div><div class="v">2,200 m</div></div>
+                <div class="kv"><div class="k">实际印刷米数</div><div class="v">2,150 m</div></div>
+                <div class="kv"><div class="k">印刷时间(分)</div><div class="v">12.0 <span class="card-sub">自动</span></div></div>
+                <div class="kv"><div class="k">签名</div><div class="v">李明</div></div>
+                <div class="kv" style="grid-column: span 2"><div class="k">备注</div><div class="v sub-val">—</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><div class="card-title">修改留痕</div></div>
+            <div class="card-body">
+              <div class="reject-banner" style="margin-bottom: var(--space-3)">
+                <svg width="15" height="15" style="flex-shrink:0; margin-top:2px"><use href="icons.svg#i-bell"></use></svg>
+                <span>本单据曾被退回 1 次：11-23 09:12 陈机长退回，原因「实际印刷米数漏填」，李明已于 09:38 修改后重新提交。</span>
+              </div>
+              <div class="kv-grid" style="grid-template-columns: repeat(2, 1fr)">
+                <div class="kv"><div class="k">创建时间</div><div class="v sub-val">2026-11-23 08:47 由 李明 创建</div></div>
+                <div class="kv"><div class="k">最后修改</div><div class="v sub-val">2026-11-23 09:38 由 李明 修改「实际印刷米数」</div></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- 右：审核流转 -->
+        <section class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">审核流转</div>
+              <div class="card-sub">员工提交 → 主管审核 → 归档</div>
+            </div>
+          </div>
+          <div class="card-body" style="padding-top: var(--space-4)">
+            <div class="audit-step">
+              <div class="audit-dot" style="background:var(--success-weak); color:var(--success)"><svg><use href="icons.svg#i-check"></use></svg></div>
+              <div>
+                <div class="audit-title">员工提交</div>
+                <div class="audit-desc">李明 提交印刷部日报，实际印刷 2,150 m</div>
+                <div class="audit-time">11-23 08:47</div>
+              </div>
+            </div>
+            <div class="audit-step">
+              <div class="audit-dot" style="background:var(--danger-weak); color:var(--danger)"><svg><use href="icons.svg#i-edit"></use></svg></div>
+              <div>
+                <div class="audit-title">退回修改</div>
+                <div class="audit-desc">陈机长 退回：实际印刷米数漏填</div>
+                <div class="audit-time">11-23 09:12</div>
+              </div>
+            </div>
+            <div class="audit-step">
+              <div class="audit-dot" style="background:var(--primary-weak); color:var(--primary)"><svg><use href="icons.svg#i-edit"></use></svg></div>
+              <div>
+                <div class="audit-title">重新提交</div>
+                <div class="audit-desc">李明 补填实际印刷米数后重新提交</div>
+                <div class="audit-time">11-23 09:38</div>
+              </div>
+            </div>
+            <div class="audit-step">
+              <div class="audit-dot" style="background:var(--warning-weak); color:var(--warning); border: 2px dashed var(--warning)"></div>
+              <div>
+                <div class="audit-title" style="color:var(--warning)">等待审核</div>
+                <div class="audit-desc">请核对本单数据，通过后归档计入产量汇总</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-foot" style="position:static; border-radius:0">
+            <button class="btn btn-ghost" style="flex:1" onclick="location.href='reports.html'">退回</button>
+            <button class="btn btn-primary" style="flex:1" onclick="location.href='reports.html'"><svg width="15" height="15"><use href="icons.svg#i-check"></use></svg>审核通过</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

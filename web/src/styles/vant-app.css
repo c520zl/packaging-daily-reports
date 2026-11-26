@@ -1,0 +1,38 @@
+/** Vant 标签 / 校验等公共小样式（填报端各页共用） */
+.v-tag {
+  display: inline-flex; align-items: center;
+  height: 22px; padding: 0 9px;
+  border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+  white-space: nowrap; flex-shrink: 0;
+}
+/* 状态标签（P2：红/绿加深至 WCAG AA ≥4.5:1）
+   红 #B91C1C on #FDECEC ≈ 5.4:1；绿 #166534 on #E7F7EE ≈ 5.9:1 */
+.v-tag--blue { background: var(--primary-weak); color: var(--primary); }
+.v-tag--teal { background: var(--accent-weak); color: var(--accent); }
+.v-tag--green { background: var(--success-weak); color: #166534; }
+.v-tag--orange { background: var(--warning-weak); color: var(--warning); }
+.v-tag--red { background: var(--danger-weak); color: #B91C1C; }
+.v-tag--gray { background: var(--surface-2); color: var(--muted); }
+
+/* 行内图标按钮：扩大点击区至 44px（可访问性），图标本身不变大 */
+.v-row-actions { display: flex; align-items: center; }
+.v-row-actions .van-icon {
+  padding: 13px 7px;         /* 18px 图标 + 26px padding = 44px 高 */
+  cursor: pointer;
+}
+
+/* 底部操作条（随流版本：放在页面流内，避免与 Tabbar 双固定栏重叠） */
+.v-submit-flow {
+  display: flex; align-items: center; gap: 10px;
+  margin: 4px 16px 8px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.v-submit-flow .sum { font-size: var(--fs-sm); color: var(--muted); flex: 1; min-width: 0; }
+.v-submit-flow .van-button { flex-shrink: 0; }
+
+/* 无 Tabbar 的页面给提交条留出空间 */
+.v-page-with-bar { padding-bottom: 76px; }

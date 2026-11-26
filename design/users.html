@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>用户管理 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .switch {
+    width: 38px; height: 22px;
+    border-radius: 999px;
+    background: var(--line);
+    position: relative;
+    cursor: pointer;
+    transition: background .15s;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .switch::after {
+    content: "";
+    position: absolute; top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(15,23,42,.2);
+    transition: transform .15s;
+  }
+  .switch.on { background: var(--success); }
+  .switch.on::after { transform: translateX(16px); }
+
+  .u-cell { display: flex; align-items: center; gap: 10px; }
+  .u-name { font-weight: 500; }
+  .u-sub { font-size: var(--fs-xs); color: var(--muted-2); margin-top: 1px; }
+
+  .modal-mask {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,.45);
+    display: grid; place-items: center;
+    z-index: 50;
+  }
+  .modal {
+    width: 480px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 48px rgba(15,23,42,.24);
+    overflow: hidden;
+  }
+  .modal-head {
+    display: flex; align-items: center;
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--line);
+  }
+  .modal-title { font-size: var(--fs-md); font-weight: 600; }
+  .modal-close { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 18px; line-height: 1; width: 44px; height: 44px; margin-right: -10px; display: grid; place-items: center; border-radius: var(--radius-sm); }
+  .modal-body { padding: var(--space-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-4); }
+  .modal-body .field-span2 { grid-column: span 2; }
+  .avatar-upload { display: flex; align-items: center; gap: var(--space-3); grid-column: span 2; }
+  .avatar-frame {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px dashed var(--line);
+    display: grid; place-items: center;
+    color: var(--muted-2);
+    font-size: var(--fs-xs);
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .avatar-frame:hover { border-color: var(--primary); color: var(--primary); }
+  .avatar-upload-hint { font-size: var(--fs-xs); color: var(--muted); line-height: 1.7; }
+  .modal-foot {
+    display: flex; justify-content: flex-end; gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-top: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  @media (max-width: 768px) {
+    .modal { width: calc(100vw - 32px); max-width: 480px; max-height: calc(100vh - 100px); overflow-y: auto; }
+    .modal-mask { padding: 50px 16px 40px; }
+    .modal-body { grid-template-columns: 1fr; }
+    .modal-body .field-span2, .avatar-upload { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">包</div>
+      <div class="brand-name">生产日报表</div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html"><svg width="18" height="18"><use href="icons.svg#i-dashboard"></use></svg>工作台</a>
+      <div class="nav-group">日报填报</div>
+      <a class="nav-item" href="print.html"><svg width="18" height="18"><use href="icons.svg#i-print"></use></svg>印刷部日报</a>
+      <a class="nav-item" href="lamination.html"><svg width="18" height="18"><use href="icons.svg#i-layers"></use></svg>复合部日报</a>
+      <a class="nav-item" href="bagmaking.html"><svg width="18" height="18"><use href="icons.svg#i-bag"></use></svg>制袋部日报</a>
+      <div class="nav-group">数据管理</div>
+      <a class="nav-item" href="reports.html"><svg width="18" height="18"><use href="icons.svg#i-report"></use></svg>报表查询</a>
+      <a class="nav-item active" href="users.html"><svg width="18" height="18"><use href="icons.svg#i-users"></use></svg>用户管理</a>
+    </nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">用户管理</div>
+      <div class="topbar-right">
+        <div class="topbar-user">
+          <div class="avatar" style="background:var(--primary-weak);color:var(--primary)">管</div>
+          <span class="topbar-username">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="card">
+        <div class="card-head">
+          <div class="filter-bar">
+            <div class="field" style="min-width:180px">
+              <input class="input" type="text" placeholder="搜索用户名 / 手机号">
+            </div>
+            <div class="field" style="min-width:130px">
+              <select class="select"><option selected>全部角色</option><option>系统管理员</option><option>部门主管</option><option>普通员工</option><option>厂部管理层</option></select>
+            </div>
+            <div class="field" style="min-width:130px">
+              <select class="select"><option selected>全部状态</option><option>启用</option><option>停用</option></select>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary"><svg width="15" height="15"><use href="icons.svg#i-plus"></use></svg>新增用户</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:180px">用户</th>
+                <th style="width:56px">性别</th>
+                <th style="width:130px">手机号</th>
+                <th style="min-width:180px">电子邮箱</th>
+                <th style="width:110px">角色</th>
+                <th style="width:120px">住址</th>
+                <th style="width:80px">状态</th>
+                <th style="width:110px">创建时间</th>
+                <th style="width:130px">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">管</div><div><div class="u-name">admin</div><div class="u-sub">系统管理员</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0001</td>
+                <td>admin@example.com</td>
+                <td><span class="tag tag-red"><span class="dot"></span>系统管理员</span></td>
+                <td>厂区办公楼 2F</td>
+                <td><span class="switch on" title="点击切换状态"></span></td>
+                <td>2026-01-05</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn">重置密码</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">陈</div><div><div class="u-name">yinshua-01</div><div class="u-sub">陈建国 · 印刷部</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0002</td>
+                <td>chenjg@example.com</td>
+                <td><span class="tag tag-blue"><span class="dot"></span>部门主管</span></td>
+                <td>印刷车间</td>
+                <td><span class="switch on"></span></td>
+                <td>2026-01-08</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn danger">停用</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">李</div><div><div class="u-name">yinshua-02</div><div class="u-sub">李明 · 印刷部</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0003</td>
+                <td>liming@example.com</td>
+                <td><span class="tag tag-gray"><span class="dot"></span>普通员工</span></td>
+                <td>印刷车间</td>
+                <td><span class="switch on"></span></td>
+                <td>2026-01-08</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn danger">停用</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">王</div><div><div class="u-name">fuhe-01</div><div class="u-sub">王建军 · 复合部</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0004</td>
+                <td>wangjj@example.com</td>
+                <td><span class="tag tag-blue"><span class="dot"></span>部门主管</span></td>
+                <td>复合车间</td>
+                <td><span class="switch on"></span></td>
+                <td>2026-01-09</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn danger">停用</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">赵</div><div><div class="u-name">zhidai-01</div><div class="u-sub">赵德海 · 制袋部</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0005</td>
+                <td>zhaodh@example.com</td>
+                <td><span class="tag tag-blue"><span class="dot"></span>部门主管</span></td>
+                <td>制袋车间</td>
+                <td><span class="switch on"></span></td>
+                <td>2026-01-10</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn danger">停用</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">马</div><div><div class="u-name">zhidai-02</div><div class="u-sub">马建军 · 制袋部</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0006</td>
+                <td>majj@example.com</td>
+                <td><span class="tag tag-gray"><span class="dot"></span>普通员工</span></td>
+                <td>制袋车间</td>
+                <td><span class="switch on"></span></td>
+                <td>2026-02-14</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn danger">停用</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar">孙</div><div><div class="u-name">zhidai-03</div><div class="u-sub">孙晓燕 · 制袋部</div></div></div></td>
+                <td>女</td>
+                <td>138 0000 0007</td>
+                <td>sunxy@example.com</td>
+                <td><span class="tag tag-gray"><span class="dot"></span>普通员工</span></td>
+                <td>制袋车间</td>
+                <td><span class="switch" title="点击切换状态"></span></td>
+                <td>2026-03-02</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn">启用</button></td>
+              </tr>
+              <tr>
+                <td><div class="u-cell"><div class="avatar" style="background:var(--primary-weak);color:var(--primary)">厂</div><div><div class="u-name">factory-boss</div><div class="u-sub">厂长</div></div></div></td>
+                <td>男</td>
+                <td>138 0000 0008</td>
+                <td>boss@example.com</td>
+                <td><span class="tag tag-teal"><span class="dot"></span>厂部管理层</span></td>
+                <td>厂区办公楼 3F</td>
+                <td><span class="switch on"></span></td>
+                <td>2026-01-05</td>
+                <td class="actions-cell"><button class="link-btn">编辑</button><button class="link-btn danger">停用</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-foot" style="position:static">
+          <span class="form-foot-sum">共 8 位用户 · 启用 7 · 停用 1</span>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- 新增/编辑用户弹窗 -->
+<div class="modal-mask">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">新增用户</div>
+      <button class="modal-close" title="关闭">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="avatar-upload">
+        <div class="avatar-frame">上传<br>头像</div>
+        <div class="avatar-upload-hint">支持 JPG / PNG，大小不超过 2MB。<br>不上传则按姓名首字生成默认头像。</div>
+      </div>
+      <div class="field">
+        <label class="field-label">用户名<span class="req">*</span></label>
+        <input class="input" type="text" placeholder="登录账号，如 yinshua-04">
+      </div>
+      <div class="field">
+        <label class="field-label">密码<span class="req">*</span></label>
+        <input class="input" type="password" placeholder="初始密码">
+      </div>
+      <div class="field">
+        <label class="field-label">姓名 / 签名</label>
+        <input class="input" type="text" placeholder="真实姓名">
+      </div>
+      <div class="field">
+        <label class="field-label">性别</label>
+        <select class="select"><option selected>男</option><option>女</option></select>
+      </div>
+      <div class="field">
+        <label class="field-label">手机号</label>
+        <input class="input" type="tel" placeholder="11 位手机号">
+      </div>
+      <div class="field">
+        <label class="field-label">电子邮箱</label>
+        <input class="input" type="email" placeholder="name@example.com">
+      </div>
+      <div class="field">
+        <label class="field-label">角色<span class="req">*</span></label>
+        <select class="select"><option selected>普通员工</option><option>部门主管</option><option>厂部管理层</option><option>系统管理员</option></select>
+      </div>
+      <div class="field">
+        <label class="field-label">状态</label>
+        <select class="select"><option selected>启用</option><option>停用</option></select>
+      </div>
+      <div class="field field-span2">
+        <label class="field-label">住址</label>
+        <input class="input" type="text" placeholder="如：制袋车间 / 宿舍 3 号楼">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline">取消</button>
+      <button class="btn btn-primary">保存</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dsh-design" content="web">
+<title>报表查询 · 软包装生产日报表系统</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">包</div>
+      <div class="brand-name">生产日报表</div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html"><svg width="18" height="18"><use href="icons.svg#i-dashboard"></use></svg>工作台</a>
+      <div class="nav-group">日报填报</div>
+      <a class="nav-item" href="print.html"><svg width="18" height="18"><use href="icons.svg#i-print"></use></svg>印刷部日报</a>
+      <a class="nav-item" href="lamination.html"><svg width="18" height="18"><use href="icons.svg#i-layers"></use></svg>复合部日报</a>
+      <a class="nav-item" href="bagmaking.html"><svg width="18" height="18"><use href="icons.svg#i-bag"></use></svg>制袋部日报</a>
+      <div class="nav-group">数据管理</div>
+      <a class="nav-item active" href="reports.html"><svg width="18" height="18"><use href="icons.svg#i-report"></use></svg>报表查询</a>
+      <a class="nav-item" href="users.html"><svg width="18" height="18"><use href="icons.svg#i-users"></use></svg>用户管理</a>
+    </nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">报表查询</div>
+      <div class="topbar-right">
+        <div class="topbar-user">
+          <div class="avatar" style="background:var(--primary-weak);color:var(--primary)">厂</div>
+          <span class="topbar-username">厂长 · 管理层</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <!-- 筛选 -->
+      <section class="card">
+        <div class="card-body filter-bar">
+          <div class="field" style="min-width:120px">
+            <label class="field-label">部门</label>
+            <select class="select"><option selected>全部部门</option><option>印刷部</option><option>复合部</option><option>制袋部</option></select>
+          </div>
+          <div class="field" style="min-width:220px">
+            <label class="field-label">日期范围</label>
+            <input class="input" type="date" value="2026-11-23">
+          </div>
+          <div class="field" style="min-width:130px">
+            <label class="field-label">至</label>
+            <input class="input" type="date" value="2026-11-23">
+          </div>
+          <div class="field" style="min-width:170px">
+            <label class="field-label">生产单号</label>
+            <input class="input" type="text" placeholder="模糊搜索单号">
+          </div>
+          <div class="field" style="min-width:120px">
+            <label class="field-label">机台 / 班次</label>
+            <select class="select"><option selected>不限</option><option>白班</option><option>夜班</option><option>1 号机</option><option>3 号机</option><option>5 号机</option></select>
+          </div>
+          <div class="toolbar" style="margin-left:auto">
+            <button class="btn btn-outline"><svg width="15" height="15"><use href="icons.svg#i-download"></use></svg>导出 Excel</button>
+            <button class="btn btn-primary"><svg width="15" height="15"><use href="icons.svg#i-search"></use></svg>查询</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 小计 -->
+      <section class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">印刷实际米数</div>
+          <div class="stat-value">14,650<span class="stat-unit">m</span></div>
+          <div class="stat-delta"><span class="tag tag-blue">4 行有效</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">复合实际米数</div>
+          <div class="stat-value">10,770<span class="stat-unit">m</span></div>
+          <div class="stat-delta"><span class="tag tag-teal">3 行有效</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">制袋完成数量</div>
+          <div class="stat-value">11,000<span class="stat-unit">个</span></div>
+          <div class="stat-delta"><span class="tag tag-orange">2 行有效</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">今日废料合计</div>
+          <div class="stat-value">10.0<span class="stat-unit">kg</span></div>
+          <div class="stat-delta"><span class="tag tag-red">制袋部上报</span></div>
+        </div>
+      </section>
+
+      <!-- 明细 -->
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">明细数据 <span class="card-sub">2026-11-23 · 共 9 行</span></div>
+          </div>
+          <div class="card-actions legend">
+            <span><i class="bar-seg-print" style="display:inline-block"></i>印刷</span>
+            <span><i class="bar-seg-lam" style="display:inline-block"></i>复合</span>
+            <span><i class="bar-seg-bag" style="display:inline-block"></i>制袋</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:76px">部门</th>
+                <th style="width:120px">生产单号</th>
+                <th style="width:100px">机台 / 机型</th>
+                <th style="width:110px">材质 / 袋型</th>
+                <th style="width:100px">规格</th>
+                <th class="num" style="width:96px">要求 / 来料</th>
+                <th class="num" style="width:96px">实际 / 完成</th>
+                <th class="num" style="width:72px">卷数</th>
+                <th class="num" style="width:72px">废料 kg</th>
+                <th style="width:76px">班次</th>
+                <th style="width:80px">签名</th>
+                <th style="width:92px">状态</th>
+                <th style="width:88px">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag tag-blue"><span class="dot"></span>印刷</span></td>
+                <td>YS-20261123-01</td>
+                <td>1 号印刷机</td>
+                <td>PET/PE</td>
+                <td>350×220</td>
+                <td class="num">3,000</td>
+                <td class="num">2,980</td>
+                <td class="num">—</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>陈建国</td>
+                <td><span class="tag tag-green"><span class="dot"></span>已审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-blue"><span class="dot"></span>印刷</span></td>
+                <td>YS-20261123-02</td>
+                <td>1 号印刷机</td>
+                <td>NY/PE</td>
+                <td>420×300</td>
+                <td class="num">4,500</td>
+                <td class="num">4,420</td>
+                <td class="num">—</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>陈建国</td>
+                <td><span class="tag tag-green"><span class="dot"></span>已审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-blue"><span class="dot"></span>印刷</span></td>
+                <td>YS-20261123-03</td>
+                <td>2 号印刷机</td>
+                <td>PET/CPP</td>
+                <td>280×180</td>
+                <td class="num">2,200</td>
+                <td class="num">2,150</td>
+                <td class="num">—</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>李明</td>
+                <td><span class="tag tag-orange"><span class="dot"></span>待审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a><a class="link-btn danger" href="detail.html">退回</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-blue"><span class="dot"></span>印刷</span></td>
+                <td>YS-20261123-04</td>
+                <td>2 号印刷机</td>
+                <td>OPP/CPP</td>
+                <td>500×320</td>
+                <td class="num">5,200</td>
+                <td class="num">5,100</td>
+                <td class="num">—</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>陈建国</td>
+                <td><span class="tag tag-orange"><span class="dot"></span>待审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a><a class="link-btn danger" href="detail.html">退回</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-teal"><span class="dot"></span>复合</span></td>
+                <td>FH-20261123-01</td>
+                <td>无溶剂机</td>
+                <td>PET/AL/PE</td>
+                <td>360×240</td>
+                <td class="num">3,600</td>
+                <td class="num">3,560</td>
+                <td class="num">12</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>王建军</td>
+                <td><span class="tag tag-green"><span class="dot"></span>已审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-teal"><span class="dot"></span>复合</span></td>
+                <td>FH-20261123-02</td>
+                <td>干式复合机</td>
+                <td>PET/VMPET/CPP</td>
+                <td>420×300</td>
+                <td class="num">4,400</td>
+                <td class="num">4,350</td>
+                <td class="num">15</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>王建军</td>
+                <td><span class="tag tag-green"><span class="dot"></span>已审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-teal"><span class="dot"></span>复合</span></td>
+                <td>FH-20261123-03</td>
+                <td>无溶剂机</td>
+                <td>PET/PE</td>
+                <td>350×220</td>
+                <td class="num">2,900</td>
+                <td class="num">2,860</td>
+                <td class="num">10</td>
+                <td class="num">—</td>
+                <td>白班</td>
+                <td>刘伟</td>
+                <td><span class="tag tag-green"><span class="dot"></span>已审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-orange"><span class="dot"></span>制袋</span></td>
+                <td>DB-20261123-01</td>
+                <td>3 号机</td>
+                <td>三边封袋</td>
+                <td>150×230</td>
+                <td class="num">1,850</td>
+                <td class="num">6,200 个</td>
+                <td class="num">—</td>
+                <td class="num">3.2</td>
+                <td>白班</td>
+                <td>赵德海</td>
+                <td><span class="tag tag-green"><span class="dot"></span>已审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a></td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-orange"><span class="dot"></span>制袋</span></td>
+                <td>DB-20261123-02</td>
+                <td>5 号机</td>
+                <td>八边封袋</td>
+                <td>180×260</td>
+                <td class="num">2,400</td>
+                <td class="num">4,800 个</td>
+                <td class="num">—</td>
+                <td class="num">6.8</td>
+                <td>白班</td>
+                <td>郑国强</td>
+                <td><span class="tag tag-orange"><span class="dot"></span>待审核</span></td>
+                <td><a class="link-btn" href="detail.html">详情</a><a class="link-btn danger" href="detail.html">退回</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-foot" style="position:static">
+          <span class="form-foot-sum">共 9 条记录 · 每页 20 条</span>
+          <span class="toolbar" style="margin-left:auto; gap:6px">
+            <button class="btn btn-outline btn-sm">上一页</button>
+            <button class="btn btn-primary btn-sm" style="min-width:44px;padding:0">1</button>
+            <button class="btn btn-outline btn-sm">下一页</button>
+          </span>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</body>
+</html>
