@@ -1,0 +1,76 @@
+# ===== 生产部署 compose（引用 GHCR 预构建镜像，服务器无需本地 build）=====
+# 用法：
+#   1. 复制 .env.example 为 .env 并填入 APP_JWT_SECRET 等真实值
+#   2. docker compose -p yicai-report up -d
+# 镜像由 GitHub Actions CD 自动发布：ghcr.io/c520zl/packaging-daily-reports/{server,web}:latest
+# 更新版本：docker compose pull server web && docker compose up -d --force-recreate server web
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: report-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: daily_report
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # RustFS：S3 兼容对象存储（镜像国内拉取见 README）
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: report-rustfs
+    environment:
+      RUSTFS_ACCESS_KEY: ${STORAGE_RUSTFS_ACCESS_KEY:-rustfsadmin}
+      RUSTFS_SECRET_KEY: ${STORAGE_RUSTFS_SECRET_KEY:-rustfsadmin}
+    volumes:
+      - rustfs-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  server:
+    image: ghcr.io/c520zl/packaging-daily-reports/server:latest
+    container_name: report-server
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rustfs:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/daily_report?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      APP_JWT_SECRET: ${APP_JWT_SECRET:?请先复制 .env.example 为 .env 并配置 APP_JWT_SECRET}
+      STORAGE_RUSTFS_ENDPOINT: http://rustfs:9000
+      STORAGE_RUSTFS_ACCESS_KEY: ${STORAGE_RUSTFS_ACCESS_KEY:-rustfsadmin}
+      STORAGE_RUSTFS_SECRET_KEY: ${STORAGE_RUSTFS_SECRET_KEY:-rustfsadmin}
+      STORAGE_RUSTFS_BUCKET: daily-report
+      STORAGE_RUSTFS_PUBLIC_URL: ${STORAGE_RUSTFS_PUBLIC_URL:-http://localhost:9000}
+    ports:
+      - "8080:8080"
+
+  web:
+    image: ghcr.io/c520zl/packaging-daily-reports/web:latest
+    container_name: report-web
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+
+volumes:
+  mysql-data:
+  rustfs-data:

@@ -60,37 +60,3 @@ jobs:
         working-directory: web
         run: pnpm run build
 
-  # ===== 双端都过才打镜像（仅 main 分支）=====
-  docker:
-    name: Docker images
-    needs: [backend, frontend]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # 有 secrets 配置时推送到 GHCR；未配置则仅本地构建验证
-      - name: Login to GHCR
-        if: ${{ secrets.GITHUB_TOKEN != '' }}
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build server image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./server
-          push: ${{ secrets.GITHUB_TOKEN != '' }}
-          tags: ghcr.io/${{ github.repository }}/server:${{ github.sha }},ghcr.io/${{ github.repository }}/server:latest
-
-      - name: Build web image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./web
-          push: ${{ secrets.GITHUB_TOKEN != '' }}
-          tags: ghcr.io/${{ github.repository }}/web:${{ github.sha }},ghcr.io/${{ github.repository }}/web:latest
