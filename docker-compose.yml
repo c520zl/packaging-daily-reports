@@ -6,7 +6,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
       MYSQL_DATABASE: daily_report
     volumes:
       - mysql-data:/var/lib/mysql
@@ -25,8 +25,8 @@ services:
     image: rustfs/rustfs:latest
     container_name: report-rustfs
     environment:
-      RUSTFS_ACCESS_KEY: rustfsadmin
-      RUSTFS_SECRET_KEY: rustfsadmin
+      RUSTFS_ACCESS_KEY: ${STORAGE_RUSTFS_ACCESS_KEY:-rustfsadmin}
+      RUSTFS_SECRET_KEY: ${STORAGE_RUSTFS_SECRET_KEY:-rustfsadmin}
     volumes:
       - rustfs-data:/data
     healthcheck:
@@ -52,13 +52,13 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       # JWT 密钥（生产环境用 .env 或 secrets 覆盖）
-      APP_JWT_SECRET: "LtjoXOEXII2jQ4m/BXCqn3Gm7F87qfM44W6xIvw//3ZbAw0/Rzr/DXstkqYFGos7dzwPNygNL+D1Pbh6LEW/LQ=="
+      APP_JWT_SECRET: ${APP_JWT_SECRET:?请先复制 .env.example 为 .env 并配置 APP_JWT_SECRET}
       # RustFS 对象存储（唯一存储后端）
       STORAGE_RUSTFS_ENDPOINT: http://rustfs:9000
-      STORAGE_RUSTFS_ACCESS_KEY: rustfsadmin
-      STORAGE_RUSTFS_SECRET_KEY: rustfsadmin
+      STORAGE_RUSTFS_ACCESS_KEY: ${STORAGE_RUSTFS_ACCESS_KEY:-rustfsadmin}
+      STORAGE_RUSTFS_SECRET_KEY: ${STORAGE_RUSTFS_SECRET_KEY:-rustfsadmin}
       STORAGE_RUSTFS_BUCKET: daily-report
-      STORAGE_RUSTFS_PUBLIC_URL: http://localhost:9000
+      STORAGE_RUSTFS_PUBLIC_URL: ${STORAGE_RUSTFS_PUBLIC_URL:-http://localhost:9000}
     ports:
       - "8080:8080"
 

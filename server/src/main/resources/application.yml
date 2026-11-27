@@ -23,7 +23,7 @@ mybatis-plus:
 app:
   jwt:
     # 生产环境务必通过环境变量 APP_JWT_SECRET 注入 64 位以上随机字符串（未配置时启动即失败）
-    secret: "LtjoXOEXII2jQ4m/BXCqn3Gm7F87qfM44W6xIvw//3ZbAw0/Rzr/DXstkqYFGos7dzwPNygNL+D1Pbh6LEW/LQ=="
+    secret: ${APP_JWT_SECRET:}
     expire-hours: 24
 
 # 文件存储：RustFS 对象存储（S3 兼容）为唯一存储后端

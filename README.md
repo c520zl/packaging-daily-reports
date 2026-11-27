@@ -28,11 +28,14 @@
 ## 快速启动（Docker，推荐）
 
 ```bash
-# 1. 拉取 RustFS 镜像（国内用 DaoCloud 源，约 773MB）
+# 1. 配置环境变量（JWT 密钥等；compose 自动读取）
+cp .env.example .env      # 编辑 .env，填入 APP_JWT_SECRET（未配置时后端启动即失败）
+
+# 2. 拉取 RustFS 镜像（国内用 DaoCloud 源，约 773MB）
 docker pull docker.m.daocloud.io/rustfs/rustfs:latest-glibc
 docker tag docker.m.daocloud.io/rustfs/rustfs:latest-glibc rustfs/rustfs:latest
 
-# 2. 启动全套：nginx(80) + server(8080) + mysql(3306) + rustfs(9000/9001)
+# 3. 启动全套：nginx(80) + server(8080) + mysql(3306) + rustfs(9000/9001)
 docker compose -f docker-compose.yml -p yicai-report up -d
 ```
 
@@ -54,7 +57,7 @@ docker compose -f docker-compose.yml -p yicai-report up -d
 
 ```bash
 # 后端：先执行 schema.sql，改 application.yml 数据库密码
-cd server && mvn spring-boot:run          # http://localhost:8080
+cd server && mvn spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080（dev profile：localhost 直连 + 开发默认密钥）
 
 # 前端
 cd web && pnpm i && pnpm dev              # http://localhost:5173（代理 /api → 8080）
