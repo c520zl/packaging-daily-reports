@@ -83,3 +83,18 @@ pnpm add playwright-core      # executablePath 指向本机 Chrome
 node e2e.cjs                  # 管理端 29 项
 node e2e-fill.cjs             # 填报端 24 项
 ```
+
+## 生产部署（GHCR 镜像）
+
+镜像由 GitHub Actions 自动发布（main 推送触发）：`ghcr.io/c520zl/packaging-daily-reports/{server,web}:latest`
+
+```bash
+# 服务器上（首次）
+cp .env.example .env && nano .env    # 填 APP_JWT_SECRET 等
+# 注意：GHCR 包需在 GitHub 网页上手动转 Public（包设置 → Danger Zone）才能匿名拉取
+docker compose -f docker-compose.prod.yml -p yicai-prod up -d
+
+# 更新版本
+docker compose -f docker-compose.prod.yml -p yicai-prod pull server web
+docker compose -f docker-compose.prod.yml -p yicai-prod up -d --force-recreate server web
+```
